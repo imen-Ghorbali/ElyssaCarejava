@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierMedicaments"
+            prefWidth="600.0" prefHeight="500.0">
+   <children>
+      <VBox spacing="15.0" alignment="CENTER" layoutX="50.0" layoutY="30.0" prefWidth="500.0">
+         <TextField fx:id="nomField" promptText="Nom" />
+         <TextField fx:id="classeField" promptText="Classe" />
+         <TextField fx:id="prixField" promptText="Prix" />
+         <TextField fx:id="descriptionField" promptText="Description" />
+
+         <!-- Image Path -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Image:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+            <TextField fx:id="imagePathField" prefWidth="300" editable="false" style="-fx-font-size: 14;"/>
+            <Button fx:id="uploadButton" text="Parcourir" onAction="#handleUploadImage"
+                    style="-fx-font-size: 14; -fx-pref-width: 100;"/>
+         </HBox>
+
+         <!-- Image Preview -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Aperçu:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+            <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="150" preserveRatio="true"
+                       style="-fx-border-color: #ccc; -fx-border-radius: 5;"/>
+         </HBox>
+
+         <!-- Buttons -->
+         <HBox spacing="20" alignment="CENTER">
+            <Button text="Annuler" onAction="#handleCancel" />
+            <Button text="Enregistrer" onAction="#handleSave" />
+         </HBox>
+      </VBox>
+   </children>
+</AnchorPane>

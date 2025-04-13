@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AddMedicamentsController">
+
+   <children>
+      <VBox layoutX="30.0" layoutY="20.0" spacing="15.0" prefWidth="540.0">
+         <children>
+
+            <!-- Champ Nom -->
+            <HBox spacing="10">
+               <TextField fx:id="nomField" prefWidth="300.0" promptText="Nom" />
+            </HBox>
+
+            <!-- Champ Description -->
+            <HBox spacing="10">
+               <TextField fx:id="descriptionField" prefWidth="300.0" promptText="Description" />
+            </HBox>
+
+            <!-- Champ Classe + ImageView -->
+            <HBox spacing="10">
+               <TextField fx:id="classeCombo" prefWidth="200.0" promptText="Classe" />
+               <ImageView fx:id="imagePreview" fitHeight="100.0" fitWidth="100.0"
+                          pickOnBounds="true" preserveRatio="true" />
+            </HBox>
+
+            <!-- Champ Prix + Bouton Ajouter -->
+            <HBox spacing="10">
+               <TextField fx:id="prixField" promptText="Prix" />
+               <Button mnemonicParsing="false" onAction="#handleSubmit" text="Ajouter" />
+            </HBox>
+
+            <!-- Sélecteur d'image -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <Label text="Image :" style="-fx-font-weight: bold;" />
+               <TextField fx:id="imagePathField" prefWidth="250.0" editable="false" />
+               <Button fx:id="uploadButton" text="Parcourir" onAction="#handleUploadImage" />
+            </HBox>
+
+            <!-- Aperçu image (déjà inclus ci-dessus mais ici version plus grande si tu veux) -->
+            <!--
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <Label text="Aperçu:" style="-fx-font-weight: bold;" />
+               <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="150" preserveRatio="true"
+                          style="-fx-border-color: #ccc; -fx-border-radius: 5;" />
+            </HBox>
+            -->
+
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
