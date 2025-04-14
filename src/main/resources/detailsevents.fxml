@@ -20,5 +20,6 @@
     <Label fx:id="descriptionLabel" text="Description: " styleClass="label"/>
     <Label fx:id="lieuLabel" text="Lieu: " styleClass="label"/>
     <Label fx:id="dateLabel" text="Date: " styleClass="label"/>
+    <Label fx:id="sponsorLabel" />
     <ImageView fx:id="imageView" fitWidth="300" fitHeight="200" preserveRatio="true"/>
 </VBox>

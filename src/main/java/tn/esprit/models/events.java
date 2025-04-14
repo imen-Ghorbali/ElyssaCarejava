@@ -1,21 +1,30 @@
 package tn.esprit.models;
 
 import java.time.LocalDateTime;
+import tn.esprit.models.sponsor;
+
+import tn.esprit.models.sponsor;
 
 public class events {
     private int id;
     private String title, description, image, lieu;
     private LocalDateTime date;
-
+    private sponsor sponsor;
     public events() {}
 
-    public events(int id, String title, String description, String image, String lieu, LocalDateTime date) {
+    public events(int id, String title, String description, String image, String lieu, LocalDateTime date, sponsor sponsor) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
         this.lieu = lieu;
         this.date = date;
+        this.sponsor = sponsor;
+
+
+
+
+
     }
 
     // À supprimer : constructeur incorrect et inutile
@@ -69,6 +78,13 @@ public class events {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+    public sponsor getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(sponsor sponsor) {
+        this.sponsor = sponsor;
     }
 
     @Override

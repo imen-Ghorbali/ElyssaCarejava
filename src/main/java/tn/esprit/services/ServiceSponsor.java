@@ -108,6 +108,7 @@ public class ServiceSponsor {
         return sponsors;
     }
 
+
     // Récupérer un sponsor par ID (avec contrôle)
     public sponsor getById(int id) {
         if (id <= 0) {

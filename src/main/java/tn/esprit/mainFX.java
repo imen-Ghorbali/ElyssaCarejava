@@ -15,7 +15,7 @@ public class mainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Charger le fichier FXML pour ajouter un événement
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutersponsor.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
         Parent root = loader.load();
 
         // Créer la scène et définir le titre de la fenêtre

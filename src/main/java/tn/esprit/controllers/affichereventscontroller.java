@@ -1,5 +1,8 @@
 package tn.esprit.controllers;
 import java.io.IOException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -49,11 +52,26 @@ public class affichereventscontroller implements Initializable {
 
     @FXML
     private TableColumn<events, Void> actionColumn;
+    @FXML
+    private TableColumn<events, String> sponsorColumn;
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ServiceEvent serviceEvent = new ServiceEvent();
+        List<events> eventList = serviceEvent.getAll();
+
+        // Créer un ObservableList et remplir la TableView
+        ObservableList<events> observableEvents = FXCollections.observableArrayList(eventList);
+        eventsTable.setItems(observableEvents);
+
+        // Initialiser la colonne sponsor pour afficher le nom du sponsor
+        sponsorColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSponsor() != null ?
+                        cellData.getValue().getSponsor().getName() : ""));  // Afficher le nom du sponsor
+
+
         // Lier les colonnes aux propriétés
         idColumn.setVisible(false);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -155,7 +173,7 @@ public class affichereventscontroller implements Initializable {
             Parent root = loader.load();
 
             // Récupère le contrôleur de la vue de modification
-            modifiereventscontoller controller = loader.getController();
+            modifiereventsController controller = loader.getController();
             controller.setEvent(e);  // Pré-remplir les champs avec les données de l'événement
 
             Stage stage = new Stage();
@@ -201,4 +219,20 @@ public class affichereventscontroller implements Initializable {
             ex.printStackTrace();
         }
     }
+    @FXML
+    private void ajouterEvent() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterevents.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Événement");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,16 +1,20 @@
 package tn.esprit.controllers;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import tn.esprit.models.events;
+import tn.esprit.models.sponsor;
 import tn.esprit.services.ServiceEvent;
+import tn.esprit.services.ServiceSponsor;
 
 import java.io.File;
+import java.util.List;
 
-public class modifiereventscontoller {
+public class modifiereventsController {
 
     @FXML
     private TextField titleField;
@@ -30,11 +34,14 @@ public class modifiereventscontoller {
     @FXML
     private ImageView previewImage;
 
+    @FXML
+    private ComboBox<sponsor> comboBoxSponsor;
+
     private events currentEvent;
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
+    private final ServiceSponsor serviceSponsor = new ServiceSponsor();
 
-    // Appelé pour préremplir les champs avec l'événement à modifier
     public void setEvent(events e) {
         this.currentEvent = e;
 
@@ -49,6 +56,45 @@ public class modifiereventscontoller {
             previewImage.setImage(img);
         } catch (Exception ex) {
             System.out.println("Erreur chargement image : " + ex.getMessage());
+        }
+
+        // Remplir le ComboBox avec tous les sponsors
+        List<sponsor> sponsors = serviceSponsor.getAll();
+        comboBoxSponsor.setItems(FXCollections.observableArrayList(sponsors));
+
+        // Personnaliser l'affichage dans le ComboBox
+        comboBoxSponsor.setCellFactory(cell -> new ListCell<sponsor>() {
+            @Override
+            protected void updateItem(sponsor item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item.getName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        comboBoxSponsor.setButtonCell(new ListCell<sponsor>() {
+            @Override
+            protected void updateItem(sponsor item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item.getName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        // Pré-sélectionner le sponsor de l’événement s’il existe
+        if (e.getSponsor() != null) {
+            for (sponsor s : sponsors) {
+                if (s.getId() == e.getSponsor().getId()) {
+                    comboBoxSponsor.setValue(s);
+                    break;
+                }
+            }
         }
     }
 
@@ -75,6 +121,9 @@ public class modifiereventscontoller {
         currentEvent.setLieu(lieu.getText());
         currentEvent.setDate(date.getValue().atStartOfDay());
         currentEvent.setImage(image.getText());
+
+        sponsor selectedSponsor = comboBoxSponsor.getValue();
+        currentEvent.setSponsor(selectedSponsor); // peut être null, ce qui est ok si aucun sponsor choisi
 
         serviceEvent.edit(currentEvent);
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Événement modifié avec succès !");

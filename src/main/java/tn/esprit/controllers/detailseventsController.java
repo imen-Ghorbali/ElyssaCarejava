@@ -11,7 +11,8 @@ import java.io.File;
 import java.time.format.DateTimeFormatter;
 
 public class detailseventsController {
-
+    @FXML
+    private Label sponsorLabel;
     @FXML
     private Label titleLabel;
     @FXML
@@ -43,6 +44,11 @@ public class detailseventsController {
             } else {
                 dateLabel.setText("Date: N/A");
             }
+            if (event.getSponsor() != null) {
+                sponsorLabel.setText("Sponsor: " + event.getSponsor().getName());
+            } else {
+                sponsorLabel.setText("Sponsor: Aucun");
+            }
 
             // Correction pour l'ImageView
             try {
@@ -72,6 +78,7 @@ public class detailseventsController {
             descriptionLabel.setText("");
             lieuLabel.setText("");
             dateLabel.setText("");
+            sponsorLabel.setText("");
             imageView.setImage(null);
         }
     }

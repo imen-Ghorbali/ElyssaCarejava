@@ -1,29 +1,31 @@
 package tn.esprit.controllers;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
 import tn.esprit.services.ServiceEvent;
+import tn.esprit.models.sponsor;
+import javafx.event.ActionEvent;
+import tn.esprit.services.ServiceSponsor;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class AjouterEventsController {
-
-    @FXML
-    private TextField titleField;
+public class AjouterEventsController {   @FXML
+private TextField titleField;
 
     @FXML
     private TextField description;
@@ -39,7 +41,8 @@ public class AjouterEventsController {
 
     @FXML
     private TextField image;
-
+    @FXML
+    private ComboBox<sponsor> comboBoxSponsor;
     private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @FXML
@@ -66,7 +69,7 @@ public class AjouterEventsController {
         String lieuField = lieu.getText().trim();
         String imagePathValue = image.getText().trim();
         LocalDate dateValue = date.getValue();
-
+        sponsor selectedSponsor = comboBoxSponsor.getValue();
         if (titre.isEmpty()) {
             showErrorAlert("Erreur", "Le titre de l'événement est obligatoire");
             return;
@@ -97,6 +100,7 @@ public class AjouterEventsController {
             newEvent.setLieu(lieuField);
             newEvent.setDate(dateTime);
             newEvent.setImage(imagePathValue);
+            newEvent.setSponsor(selectedSponsor);
 
             serviceEvent.add(newEvent);
 
@@ -112,7 +116,7 @@ public class AjouterEventsController {
     private void navigateToAfficherEvents() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
-            AnchorPane root = loader.load();
+            BorderPane root = loader.load(); // ✅
             Scene scene = new Scene(root);
             Stage stage = (Stage) titleField.getScene().getWindow();
             stage.setScene(scene);
@@ -141,6 +145,37 @@ public class AjouterEventsController {
 
     @FXML
     void initialize() {
+        // Récupérer tous les sponsors depuis la base de données
+        ServiceSponsor serviceSponsor = new ServiceSponsor();
+        List<sponsor> sponsors = serviceSponsor.getAll(); // Méthode pour récupérer tous les sponsors
+
+        // Mettre à jour le ComboBox avec les sponsors
+        ObservableList<sponsor> sponsorList = FXCollections.observableArrayList(sponsors);
+        comboBoxSponsor.setItems(sponsorList);
+
+        // Affichage du nom du sponsor dans le ComboBox
+        comboBoxSponsor.setCellFactory(cell -> new ListCell<sponsor>() {
+            @Override
+            protected void updateItem(sponsor item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    setText(item.getName());  // Afficher le nom du sponsor
+                }
+            }
+        });
+
+        // Affichage du nom du sponsor sélectionné dans le bouton du ComboBox
+        comboBoxSponsor.setButtonCell(new ListCell<sponsor>() {
+            @Override
+            protected void updateItem(sponsor item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    setText(item.getName());  // Afficher le nom du sponsor dans le bouton
+                }
+            }
+        });
         // Initialisation future si nécessaire
     }
+
+
 }

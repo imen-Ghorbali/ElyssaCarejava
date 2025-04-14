@@ -1,6 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.models.events;
+import tn.esprit.models.sponsor;
 import tn.esprit.utils.DataBase;
 
 import java.sql.*;
@@ -22,13 +23,18 @@ public class ServiceEvent {
             return;
         }
 
-        String sql = "INSERT INTO events (title, description, lieu, date, image) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO events (title, description, lieu, date, image, id_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
             pstmt.setString(1, e.getTitle());
             pstmt.setString(2, e.getDescription());
             pstmt.setString(3, e.getLieu());
             pstmt.setTimestamp(4, Timestamp.valueOf(e.getDate()));
             pstmt.setString(5, e.getImage());
+            if (e.getSponsor() != null) {
+                pstmt.setInt(6, e.getSponsor().getId());  // Utilisation de l'ID du sponsor
+            } else {
+                pstmt.setNull(6, Types.INTEGER);  // Si aucun sponsor, on met la valeur à NULL
+            }
 
             int res = pstmt.executeUpdate();
             if (res > 0) {
@@ -93,26 +99,54 @@ public class ServiceEvent {
         }
     }
 
-    // Récupérer tous les événements (triés par date décroissante)
     public List<events> getAll() {
-        List<events> events = new ArrayList<>();
+        List<events> eventsList = new ArrayList<>();
         String req = "SELECT * FROM events ORDER BY date DESC";
         try (Statement stmt = cnx.createStatement(); ResultSet res = stmt.executeQuery(req)) {
             while (res.next()) {
-                events e = new events(
-                        res.getInt("id"),
-                        res.getString("title"),
-                        res.getString("description"),
-                        res.getString("image"),
-                        res.getString("lieu"),
-                        res.getTimestamp("date").toLocalDateTime()
-                );
-                events.add(e);
+                // Récupérer les données de l'événement
+                int eventId = res.getInt("id");
+                String title = res.getString("title");
+                String description = res.getString("description");
+                String image = res.getString("image");
+                String lieu = res.getString("lieu");
+                LocalDateTime date = res.getTimestamp("date").toLocalDateTime();
+                int sponsorId = res.getInt("id_sponsor");
+
+                // Récupérer le sponsor lié à l'événement
+                sponsor sponsor = getSponsorById(sponsorId);
+
+                // Créer l'objet events avec le sponsor
+                events e = new events(eventId, title, description, image, lieu, date, sponsor);
+                eventsList.add(e);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return events;
+        return eventsList;
+    }
+
+    // Méthode pour récupérer un sponsor par son ID
+    private sponsor getSponsorById(int sponsorId) {
+        sponsor sponsor = null;
+        String req = "SELECT * FROM sponsor WHERE id = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
+            pstmt.setInt(1, sponsorId);
+            try (ResultSet res = pstmt.executeQuery()) {
+                if (res.next()) {
+                    sponsor = new sponsor(
+                            res.getInt("id"),
+                            res.getInt("prix"), // Changer cette ligne pour correspondre au type correct du prix
+                            res.getString("name"),
+                            res.getString("description"),
+                            res.getString("type")
+                    );
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return sponsor;
     }
 
     // Récupérer un événement par ID (avec contrôle)
@@ -127,18 +161,25 @@ public class ServiceEvent {
             pstmt.setInt(1, id);
             ResultSet res = pstmt.executeQuery();
             if (res.next()) {
-                return new events(
-                        res.getInt("id"),
-                        res.getString("title"),
-                        res.getString("description"),
-                        res.getString("image"),
-                        res.getString("lieu"),
-                        res.getTimestamp("date").toLocalDateTime()
-                );
+                // Récupérer les données de l'événement
+                int eventId = res.getInt("id");
+                String title = res.getString("title");
+                String description = res.getString("description");
+                String image = res.getString("image");
+                String lieu = res.getString("lieu");
+                LocalDateTime date = res.getTimestamp("date").toLocalDateTime();
+                int sponsorId = res.getInt("id_sponsor");
+
+                // Récupérer le sponsor lié à l'événement
+                sponsor sponsor = getSponsorById(sponsorId);
+
+                // Créer l'objet events avec le sponsor
+                return new events(eventId, title, description, image, lieu, date, sponsor);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return null;
     }
+
 }

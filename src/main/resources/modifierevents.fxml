@@ -3,10 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Pos?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="tn.esprit.controllers.modifiereventscontoller"
+            fx:controller="tn.esprit.controllers.modifiereventsController"
             prefWidth="700.0" prefHeight="500.0"
             stylesheets="@css/styleajout.css">
 
@@ -15,26 +19,51 @@
                layoutX="180" layoutY="20"
                styleClass="header-title"/>
 
-        <Label layoutX="70" layoutY="80" text="Titre" styleClass="label"/>
-        <TextField fx:id="titleField" layoutX="220" layoutY="75" prefWidth="350"/>
+        <!-- Conteneur principal pour l'agencement -->
+        <VBox alignment="CENTER" spacing="10" layoutX="50" layoutY="80" prefWidth="600">
+            <!-- Titre -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Titre" styleClass="label"/>
+                <TextField fx:id="titleField" prefWidth="350"/>
+            </HBox>
 
-        <Label layoutX="70" layoutY="130" text="Description" styleClass="label"/>
-        <TextField fx:id="description" layoutX="220" layoutY="125" prefWidth="350"/>
+            <!-- Description -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Description" styleClass="label"/>
+                <TextField fx:id="description" prefWidth="350"/>
+            </HBox>
 
-        <Label layoutX="70" layoutY="180" text="Lieu" styleClass="label"/>
-        <TextField fx:id="lieu" layoutX="220" layoutY="175" prefWidth="350"/>
+            <!-- Lieu -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Lieu" styleClass="label"/>
+                <TextField fx:id="lieu" prefWidth="350"/>
+            </HBox>
 
-        <Label layoutX="70" layoutY="230" text="Date" styleClass="label"/>
-        <DatePicker fx:id="date" layoutX="220" layoutY="225" prefWidth="200"/>
+            <!-- Date -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Date" styleClass="label"/>
+                <DatePicker fx:id="date" prefWidth="200"/>
+            </HBox>
 
-        <Label layoutX="70" layoutY="280" text="Image" styleClass="label"/>
-        <TextField fx:id="image" layoutX="220" layoutY="275" prefWidth="240" editable="false"/>
-        <Button text="Parcourir..." layoutX="470" layoutY="275" onAction="#handleImageBrowse"/>
+            <!-- Image -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Image" styleClass="label"/>
+                <TextField fx:id="image" prefWidth="240" editable="false"/>
+                <Button text="Parcourir..." onAction="#handleImageBrowse"/>
+            </HBox>
 
-        <ImageView fx:id="previewImage" layoutX="220" layoutY="320" fitWidth="200" fitHeight="130"/>
+            <!-- Preview Image -->
+            <ImageView fx:id="previewImage" fitWidth="200" fitHeight="130"/>
 
-        <Button fx:id="modifier" layoutX="500" layoutY="440" text="Modifier"
-                onAction="#handleModifier" styleClass="submit-button"/>
+            <!-- Sponsor -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Sponsor" styleClass="label"/>
+                <ComboBox fx:id="comboBoxSponsor" prefWidth="200"/>
+            </HBox>
+
+            <!-- Bouton Modifier -->
+            <Button fx:id="modifier" text="Modifier" onAction="#handleModifier" styleClass="submit-button"/>
+        </VBox>
 
     </children>
 </AnchorPane>
