@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controllers.affichersponsorController"
+            stylesheets="@css/styleaff.css"
+            prefWidth="800" prefHeight="600">
+
+    <children>
+        <!-- ConTAINER PRINCIPAL -->
+        <VBox spacing="15" alignment="CENTER" prefWidth="800">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- TITRE -->
+            <Label text="Liste des Sponsors" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #00796b;" />
+
+            <!-- TABLEAU -->
+            <TableView fx:id="sponsorTable" prefWidth="760" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" visible="false"/>
+                    <TableColumn fx:id="nameColumn" text="Nom" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                    <TableColumn fx:id="descriptionColumn" text="Description" style="-fx-font-size: 14px;"/>
+                    <TableColumn fx:id="typeColumn" text="Type" style="-fx-font-size: 14px;"/>
+                    <TableColumn fx:id="prixColumn" text="Prix" style="-fx-font-size: 14px;"/>
+                    <TableColumn fx:id="actionColumn" text="Actions" style="-fx-font-size: 14px;"/>
+                </columns>
+                <style>
+                    .table {
+                    -fx-background-color: #e0f2f1;
+                    -fx-border-color: #00796b;
+                    -fx-border-width: 1px;
+                    }
+                    .table-cell {
+                    -fx-background-color: #ffffff;
+                    }
+                    .table-row-cell:filled:hover {
+                    -fx-background-color: #b2dfdb;
+                    }
+                </style>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

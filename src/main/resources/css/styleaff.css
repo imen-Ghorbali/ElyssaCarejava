@@ -1,0 +1,26 @@
+/* style.css */
+
+.label {
+    -fx-font-family: "Arial";
+    -fx-text-fill: #00796b;
+}
+
+.table {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #00796b;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+}
+
+.table-view {
+    -fx-background-color: #e0f2f1;
+}
+
+.table-cell {
+    -fx-font-size: 14px;
+    -fx-text-fill: #004d40;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #b2dfdb;
+}

@@ -1,0 +1,65 @@
+/* 🌿 Fond général doux pour ambiance médicale */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom right, #e8f1f8, #ffffff);
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+/* 🩺 Titre principal élégant */
+.label {
+    -fx-text-fill: #2d4059;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-padding: 20 0 20 0;
+}
+
+/* 🧾 TableView au style médical épuré */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #b0cce9;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0.1, 0, 3);
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10;
+}
+
+/* 🔷 En-têtes de colonnes avec bleu médical */
+.table-view .column-header {
+    -fx-background-color: #a8d0e6;
+    -fx-text-fill: #102a43;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+/* 📋 Cellules de la table */
+.table-cell {
+    -fx-padding: 8px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+
+/* ✨ Lignes alternées pour une meilleure lisibilité */
+.table-row-cell:odd {
+    -fx-background-color: #f5fafe;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* 🖱️ Effet au survol */
+.table-row-cell:hover {
+    -fx-background-color: #e0f0ff;
+}
+
+/* ✅ Sélection médicale douce */
+.table-row-cell:selected {
+    -fx-background-color: #5dade2;
+    -fx-text-fill: white;
+}
+
+/* 🔠 Alignement des colonnes */
+.table-cell, .table-column {
+    -fx-alignment: CENTER_LEFT;
+}

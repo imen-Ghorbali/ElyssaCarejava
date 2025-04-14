@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.modifiereventscontoller"
+            prefWidth="700.0" prefHeight="500.0"
+            stylesheets="@css/styleajout.css">
+
+    <children>
+        <Label text="Modifier l'événement"
+               layoutX="180" layoutY="20"
+               styleClass="header-title"/>
+
+        <Label layoutX="70" layoutY="80" text="Titre" styleClass="label"/>
+        <TextField fx:id="titleField" layoutX="220" layoutY="75" prefWidth="350"/>
+
+        <Label layoutX="70" layoutY="130" text="Description" styleClass="label"/>
+        <TextField fx:id="description" layoutX="220" layoutY="125" prefWidth="350"/>
+
+        <Label layoutX="70" layoutY="180" text="Lieu" styleClass="label"/>
+        <TextField fx:id="lieu" layoutX="220" layoutY="175" prefWidth="350"/>
+
+        <Label layoutX="70" layoutY="230" text="Date" styleClass="label"/>
+        <DatePicker fx:id="date" layoutX="220" layoutY="225" prefWidth="200"/>
+
+        <Label layoutX="70" layoutY="280" text="Image" styleClass="label"/>
+        <TextField fx:id="image" layoutX="220" layoutY="275" prefWidth="240" editable="false"/>
+        <Button text="Parcourir..." layoutX="470" layoutY="275" onAction="#handleImageBrowse"/>
+
+        <ImageView fx:id="previewImage" layoutX="220" layoutY="320" fitWidth="200" fitHeight="130"/>
+
+        <Button fx:id="modifier" layoutX="500" layoutY="440" text="Modifier"
+                onAction="#handleModifier" styleClass="submit-button"/>
+
+    </children>
+</AnchorPane>

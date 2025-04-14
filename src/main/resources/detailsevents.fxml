@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.controllers.detailseventsController"
+      fx:id="vbox"
+      alignment="CENTER"
+      spacing="15"
+      stylesheets="@css/styledetails.css"
+      styleClass="vbox">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="Titre: " styleClass="label"/>
+    <Label fx:id="descriptionLabel" text="Description: " styleClass="label"/>
+    <Label fx:id="lieuLabel" text="Lieu: " styleClass="label"/>
+    <Label fx:id="dateLabel" text="Date: " styleClass="label"/>
+    <ImageView fx:id="imageView" fitWidth="300" fitHeight="200" preserveRatio="true"/>
+</VBox>

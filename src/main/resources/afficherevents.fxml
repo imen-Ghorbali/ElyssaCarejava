@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controllers.affichereventscontroller"
+            stylesheets="@css/style.css"
+            prefWidth="800" prefHeight="600">
+
+   <children>
+      <VBox spacing="10">
+         <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+         </padding>
+         <Label text="Liste des Événements" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+         <TableView fx:id="eventsTable" prefHeight="500" prefWidth="760">
+            <columns>
+               <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+               <TableColumn fx:id="titleColumn" text="Titre" prefWidth="150"/>
+               <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+               <TableColumn fx:id="lieuColumn" text="Lieu" prefWidth="100"/>
+               <TableColumn fx:id="dateColumn" text="Date" prefWidth="150"/>
+               <TableColumn fx:id="imageColumn" text="Image" prefWidth="100"/>
+               <!-- Nouvelle colonne pour les actions -->
+               <TableColumn fx:id="actionColumn" text="Actions" prefWidth="150"/>
+            </columns>
+         </TableView>
+      </VBox>
+   </children>
+</AnchorPane>

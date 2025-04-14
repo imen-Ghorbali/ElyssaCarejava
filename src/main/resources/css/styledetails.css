@@ -1,0 +1,31 @@
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 30;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 10);
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10 0 0 0;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+#titleLabel {
+    -fx-font-size: 20px;
+    -fx-text-fill: #2980b9;
+}
+
+#descriptionLabel, #lieuLabel, #dateLabel {
+    -fx-text-fill: #555;
+}
+#imageView {
+    -fx-effect: dropshadow(gaussian, #999, 10, 0, 0, 5);
+    -fx-border-radius: 10;
+}
