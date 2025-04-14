@@ -6,12 +6,17 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 import tn.esprit.models.events;
 import tn.esprit.models.sponsor;
 import tn.esprit.services.ServiceEvent;
 import tn.esprit.services.ServiceSponsor;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class modifiereventsController {
@@ -123,10 +128,21 @@ public class modifiereventsController {
         currentEvent.setImage(image.getText());
 
         sponsor selectedSponsor = comboBoxSponsor.getValue();
-        currentEvent.setSponsor(selectedSponsor); // peut être null, ce qui est ok si aucun sponsor choisi
+        if (selectedSponsor != null) {
+            currentEvent.setSponsor(selectedSponsor);
+            System.out.println("Sponsor sélectionné : " + selectedSponsor.getName());
+        } else {
+            System.out.println("Aucun sponsor sélectionné.");
+        }
 
+        // Modifier l'événement dans la base de données
         serviceEvent.edit(currentEvent);
+
+        // Afficher une alerte de succès
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Événement modifié avec succès !");
+
+        // Naviguer vers la liste des événements
+        navigateToEventList();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -136,4 +152,28 @@ public class modifiereventsController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    private void navigateToEventList() {
+        try {
+            // Charger la vue de la liste des événements
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir la scène actuelle
+            Stage stage = (Stage) titleField.getScene().getWindow();
+
+            // Remplacer la scène actuelle par la nouvelle scène
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Rafraîchir la liste des événements dans le contrôleur de la liste
+            affichereventscontroller eventListController = loader.getController();
+             // Appel de la méthode pour rafraîchir la liste
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des événements.");
+        }
+    }
+
 }

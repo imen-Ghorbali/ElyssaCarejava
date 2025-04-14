@@ -96,10 +96,10 @@ public class affichersponsorController implements Initializable {
             modifierSponsorController controller = loader.getController();
             controller.setSponsor(s);
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) sponsorTable.getScene().getWindow();
             stage.setTitle("Modifier Sponsor");
             stage.setScene(new Scene(root));
-            stage.show();
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -117,5 +117,20 @@ public class affichersponsorController implements Initializable {
                 sponsorTable.getItems().remove(s);
             }
         });
+    }
+    @FXML
+    private void ajouterSponsor() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutersponsor.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sponsorTable.getScene().getWindow();
+            stage.setTitle("Ajouter un sponsor");
+            stage.setScene(new Scene(root));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

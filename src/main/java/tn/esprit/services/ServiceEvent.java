@@ -48,6 +48,7 @@ public class ServiceEvent {
     }
 
     // Modifier un événement existant (avec contrôle de saisie)
+    // Modifier un événement existant (avec contrôle de saisie)
     public void edit(events e) {
         if (e.getId() <= 0 ||
                 e.getTitle() == null || e.getTitle().isEmpty() ||
@@ -58,14 +59,23 @@ public class ServiceEvent {
             return;
         }
 
-        String req = "UPDATE events SET title=?, description=?, lieu=?, date=?, image=? WHERE id=?";
+        // Mettre à jour avec le sponsor, si il y en a
+        String req = "UPDATE events SET title=?, description=?, lieu=?, date=?, image=?, id_sponsor=? WHERE id=?";
         try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
             pstmt.setString(1, e.getTitle());
             pstmt.setString(2, e.getDescription());
             pstmt.setString(3, e.getLieu());
             pstmt.setTimestamp(4, Timestamp.valueOf(e.getDate()));
             pstmt.setString(5, e.getImage());
-            pstmt.setInt(6, e.getId());
+
+            // Vérification du sponsor
+            if (e.getSponsor() != null) {
+                pstmt.setInt(6, e.getSponsor().getId());  // Ajouter l'ID du sponsor
+            } else {
+                pstmt.setNull(6, Types.INTEGER);  // Si aucun sponsor, on met la valeur à NULL
+            }
+
+            pstmt.setInt(7, e.getId());  // ID de l'événement à modifier
 
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
@@ -77,6 +87,7 @@ public class ServiceEvent {
             ex.printStackTrace();
         }
     }
+
 
     // Supprimer un événement par ID (avec contrôle)
     public void delete(int id) {

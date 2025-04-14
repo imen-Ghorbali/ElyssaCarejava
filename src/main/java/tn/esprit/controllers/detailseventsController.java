@@ -11,6 +11,7 @@ import java.io.File;
 import java.time.format.DateTimeFormatter;
 
 public class detailseventsController {
+
     @FXML
     private Label sponsorLabel;
     @FXML
@@ -22,18 +23,20 @@ public class detailseventsController {
     @FXML
     private Label dateLabel;
     @FXML
-    private ImageView imageView; // Correction: Utilisation de javafx.scene.image.ImageView
+    private ImageView imageView; // Utilisation de javafx.scene.image.ImageView
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
     private int eventId;
 
+    // Méthode pour définir l'ID de l'événement et charger ses détails
     public void setEventId(int eventId) {
         this.eventId = eventId;
         loadEventDetails();
     }
 
+    // Méthode pour charger les détails de l'événement
     private void loadEventDetails() {
-        events event = serviceEvent.getById(eventId);
+        events event = serviceEvent.getById(eventId); // Récupérer l'événement par son ID
         if (event != null) {
             titleLabel.setText("Titre: " + event.getTitle());
             descriptionLabel.setText("Description: " + event.getDescription());
@@ -44,13 +47,14 @@ public class detailseventsController {
             } else {
                 dateLabel.setText("Date: N/A");
             }
+
             if (event.getSponsor() != null) {
                 sponsorLabel.setText("Sponsor: " + event.getSponsor().getName());
             } else {
                 sponsorLabel.setText("Sponsor: Aucun");
             }
 
-            // Correction pour l'ImageView
+            // Gestion de l'image
             try {
                 String imagePath = event.getImage();
                 if (imagePath != null && !imagePath.isEmpty()) {
@@ -70,7 +74,7 @@ public class detailseventsController {
                 }
             } catch (Exception e) {
                 System.err.println("Erreur de chargement de l'image: " + e.getMessage());
-                // Option: Charger une image par défaut
+                // Option: Charger une image par défaut si erreur
                 // imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
             }
         } else {

@@ -176,10 +176,10 @@ public class affichereventscontroller implements Initializable {
             modifiereventsController controller = loader.getController();
             controller.setEvent(e);  // Pré-remplir les champs avec les données de l'événement
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) eventsTable.getScene().getWindow();
             stage.setTitle("Modifier Événement");
             stage.setScene(new Scene(root));
-            stage.show();
+
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -210,10 +210,10 @@ public class affichereventscontroller implements Initializable {
             detailseventsController controller = loader.getController();
             controller.setEventId(e.getId());  // Passer l'ID de l'événement pour charger ses détails
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) eventsTable.getScene().getWindow();
             stage.setTitle("Détails de l'Événement");
             stage.setScene(new Scene(root));
-            stage.show();
+
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -225,10 +225,10 @@ public class affichereventscontroller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterevents.fxml"));
             Parent root = loader.load();
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) eventsTable.getScene().getWindow();
             stage.setTitle("Ajouter un Événement");
             stage.setScene(new Scene(root));
-            stage.show();
+
 
         } catch (IOException e) {
             e.printStackTrace();
