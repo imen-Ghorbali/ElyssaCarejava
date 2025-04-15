@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AffichageMedicaments"
+            prefHeight="700.0" prefWidth="900.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #F8F9F9, #E3E9E9);">
+
+   <VBox alignment="TOP_CENTER" spacing="20.0"
+         AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+
+      <!-- 🩺 Titre Principal -->
+      <Label text="💊 Gestion des Médicaments"
+             style="-fx-font-size: 34px; -fx-font-family: 'Roboto', sans-serif; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #1e6d9f, #5a9b97); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.4, 0, 3);"/>
+
+      <!-- 🔍 Barre de recherche et boutons -->
+      <HBox alignment="CENTER_LEFT" spacing="20.0"
+            style="-fx-background-color: rgba(255, 255, 255, 0.85); -fx-padding: 20; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.4, 0, 5);">
+
+         <TextField fx:id="searchField" promptText="🔍 Rechercher un médicament..."
+                    style="-fx-pref-width: 350px; -fx-font-size: 16px; -fx-font-weight: 500; -fx-background-radius: 15; -fx-padding: 12; -fx-border-color: #ccc; -fx-border-radius: 15; -fx-focus-color: #3498db;"/>
+
+         <!-- Boutons CRUD stylisés -->
+         <Button onAction="#handleAdd" text="➕"
+                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 15; -fx-pref-width: 55px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 3);"/>
+         <Button onAction="#handleEdit" text="✏️"
+                 style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 15; -fx-pref-width: 55px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 3);"/>
+         <Button onAction="#handleDelete" text="🗑️"
+                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 15; -fx-pref-width: 55px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 3);"/>
+         <Button onAction="#handleSaveAndShowExcel" text="📁"
+                 style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 15; -fx-pref-width: 55px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 3);"/>
+      </HBox>
+
+      <!-- 🧾 Liste des médicaments -->
+      <ListView fx:id="affichageMed" prefHeight="400.0" prefWidth="850.0"
+                style="-fx-background-color: #ffffff; -fx-border-radius: 15; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #bdc3c7; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.3, 0, 5);"/>
+
+      <!-- 📄 Pagination stylisée -->
+      <Pagination fx:id="pagination" prefWidth="400.0"
+                  style="-fx-padding: 15 0 10 0; -fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 5);">
+         <VBox.margin>
+            <Insets top="20"/>
+         </VBox.margin>
+      </Pagination>
+
+      <!-- 🧷 Chemin fichier -->
+      <Label fx:id="filePathLabel"
+             style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px; -fx-font-style: italic;"/>
+
+      <!-- 📊 Table Excel cachée -->
+      <TableView fx:id="excelTableView" visible="false" prefHeight="200.0" prefWidth="850.0"
+                 style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-background-radius: 15; -fx-border-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.3, 0, 5);"/>
+   </VBox>
+</AnchorPane>
