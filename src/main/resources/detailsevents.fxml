@@ -16,13 +16,20 @@
         <Insets top="40" right="50" bottom="40" left="50"/>
     </padding>
 
-    <Label fx:id="titleLabel" styleClass="event-title"/>
+    <!-- Titre de l'événement -->
+    <Label fx:id="titleLabel" styleClass="event-title" text="Titre de l'événement"/>
+
+    <!-- Image de l'événement -->
     <ImageView fx:id="imageView" fitWidth="400" fitHeight="250" preserveRatio="true"/>
 
-    <VBox spacing="10" styleClass="info-box">
-        <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-label"/>
-        <Label fx:id="lieuLabel" styleClass="event-label"/>
-        <Label fx:id="dateLabel" styleClass="event-label"/>
-        <Label fx:id="sponsorLabel" styleClass="event-label"/>
+    <!-- Détails supplémentaires de l'événement -->
+    <VBox spacing="12" styleClass="info-box">
+        <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-label" text="Description de l'événement"/>
+        <Label fx:id="lieuLabel" styleClass="event-label" text="Lieu de l'événement"/>
+        <Label fx:id="dateLabel" styleClass="event-label" text="Date de l'événement"/>
+        <Label fx:id="sponsorLabel" styleClass="event-label" text="Sponsor de l'événement"/>
     </VBox>
+
+    <!-- Bouton pour retourner à la liste -->
+    <Button fx:id="btnRetourListe" text="Retour à la liste" onAction="#handleRetourListe" styleClass="button"/>
 </VBox>

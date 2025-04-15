@@ -1,17 +1,25 @@
 package tn.esprit.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import tn.esprit.models.events;
 import tn.esprit.services.ServiceEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class detailseventsController {
-
+    @FXML
+    private Button btnRetourListe;
     @FXML
     private Label sponsorLabel;
     @FXML
@@ -32,6 +40,19 @@ public class detailseventsController {
     public void setEventId(int eventId) {
         this.eventId = eventId;
         loadEventDetails();
+    }
+    @FXML
+    public void handleRetourListe(ActionEvent event) {
+        // Ici, tu peux charger la vue de la liste des événements
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/afficherevents.fxml")); // Remplace par ton fichier FXML de la liste
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnRetourListe.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Méthode pour charger les détails de l'événement
