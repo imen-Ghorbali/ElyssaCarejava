@@ -1,0 +1,21 @@
+/* Style pour la pagination */
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+/* Style pour les blogs */
+.blog-card {
+    -fx-background-color: white;
+    -fx-border-color: #eee;
+    -fx-border-radius: 5;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+/* Style pour les détails */
+.blog-details {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-padding: 15;
+    -fx-background-color: #f9f9f9;
+}
