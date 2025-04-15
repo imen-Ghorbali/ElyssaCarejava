@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.models.sponsor;
 import tn.esprit.services.ServiceSponsor;
@@ -21,7 +22,8 @@ public class affichersponsorController implements Initializable {
 
     @FXML
     private TableView<sponsor> sponsorTable;
-
+    @FXML
+    private VBox eventCardsContainer;
     @FXML
     private TableColumn<sponsor, Integer> idColumn;
 
@@ -119,7 +121,7 @@ public class affichersponsorController implements Initializable {
         });
     }
     @FXML
-    private void ajouterSponsor() {
+    private void AjouterSponsor() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutersponsor.fxml"));
             Parent root = loader.load();

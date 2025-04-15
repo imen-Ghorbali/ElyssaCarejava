@@ -3,27 +3,66 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             fx:controller="tn.esprit.controllers.AjouterSponsorController"
-            prefWidth="600.0" prefHeight="450.0"
-            stylesheets="@css/styleajout.css"
-            style="-fx-background-color: #f4faff;">
+            prefWidth="650.0" prefHeight="500.0"
 
-    <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="30" prefWidth="500" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <Label text="Ajouter un Sponsor" style="-fx-font-size: 20px; -fx-text-fill: #2e7d92; -fx-font-weight: bold;" />
+            style="-fx-background-color: #f4f7fb;"
+            stylesheets="@css/styleajoutsponsor.css">
 
-        <TextField fx:id="nameField" promptText="Nom du sponsor" maxWidth="400" />
-        <TextField fx:id="descriptionField" promptText="Description" maxWidth="400" />
-        <TextField fx:id="prixField" promptText="Prix (entier)" maxWidth="400" />
-        <TextField fx:id="typeField" promptText="Type (ex: Médical, Sportif...)" maxWidth="400" />
 
-        <Button text="Ajouter le sponsor"
-                onAction="#handleSubmit"
-                style="-fx-background-color: #2e7d92; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;"
-                maxWidth="200" />
+    <!-- ScrollPane pour un affichage fluide -->
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                styleClass="scroll-pane">
 
-        <Label fx:id="messageLabel" text="" style="-fx-text-fill: red;" />
-    </VBox>
+        <VBox alignment="CENTER" spacing="20" prefWidth="600" styleClass="main-form">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+
+        <!-- Titre -->
+            <Label text="Ajouter un Sponsor"
+                   styleClass="header-title"/>
+
+            <!-- Nom -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Nom :" styleClass="label"/>
+                <TextField fx:id="nameField" promptText="Nom du sponsor" prefWidth="350" styleClass="input-field"/>
+            </HBox>
+
+            <!-- Description -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Description :" styleClass="label"/>
+                <TextField fx:id="descriptionField" promptText="Description" prefWidth="350" styleClass="input-field"/>
+            </HBox>
+
+            <!-- Prix -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Prix :" styleClass="label"/>
+                <TextField fx:id="prixField" promptText="Prix en Dinar" prefWidth="350" styleClass="input-field"/>
+            </HBox>
+
+            <!-- Type -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Type :" styleClass="label"/>
+                <TextField fx:id="typeField" promptText="Ex: Médical, Sportif..." prefWidth="350" styleClass="input-field"/>
+            </HBox>
+
+            <!-- Bouton Ajouter -->
+            <Button text="Ajouter le sponsor"
+                    fx:id="ajouterButton"
+                    onAction="#handleSubmit"
+                    styleClass="submit-button"/>
+
+            <!-- Message -->
+            <Label fx:id="messageLabel" text="" styleClass="message-label error"/>
+
+        </VBox>
+    </ScrollPane>
 </AnchorPane>

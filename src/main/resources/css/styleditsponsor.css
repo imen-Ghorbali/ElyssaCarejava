@@ -1,24 +1,49 @@
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-background-color: #f4f7fb;
+}
+
+/* Titre principal */
 .header-title {
-    -fx-text-fill: #2c3e50;
-    -fx-font-size: 26px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
+    -fx-text-fill: #2e7d92;
 }
 
+/* Labels des champs */
 .label {
-    -fx-text-fill: #34495e;
+    -fx-font-size: 16px;
+    -fx-text-fill: #1f4d56;
+    -fx-font-weight: bold;
+}
+
+/* Champs de saisie */
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #cfdce5;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0, 0, 2);
 }
 
+/* Bouton Ajouter */
 .submit-button {
-    -fx-background-color: #3498db;
+    -fx-background-color: #2e7d92;
     -fx-text-fill: white;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px 25px;
 }
 
-.text-field {
-    -fx-background-radius: 6;
-    -fx-border-color: #d0d7de;
+.submit-button:hover {
+    -fx-background-color: #379bb2;
+    -fx-cursor: hand;
+}
+
+/* HBox alignement */
+HBox {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 15;
 }

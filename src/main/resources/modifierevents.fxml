@@ -2,67 +2,74 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Pos?>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.controllers.modifiereventsController"
-            prefWidth="700.0" prefHeight="500.0"
+            prefWidth="700.0" prefHeight="520.0"
             stylesheets="@css/styleajout.css">
 
     <children>
-        <Label text="Modifier l'événement"
-               layoutX="180" layoutY="20"
+
+        <!-- Titre principal -->
+        <Label text="Modifier l'événement médical"
+               layoutX="190" layoutY="20"
                styleClass="header-title"/>
 
-        <!-- Conteneur principal pour l'agencement -->
-        <VBox alignment="CENTER" spacing="10" layoutX="50" layoutY="80" prefWidth="600">
+        <!-- Conteneur principal -->
+        <VBox alignment="TOP_CENTER"
+              layoutX="50" layoutY="70"
+              prefWidth="600" spacing="15">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
             <!-- Titre -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Titre" styleClass="label"/>
-                <TextField fx:id="titleField" prefWidth="350"/>
+                <TextField fx:id="titleField" prefWidth="380" styleClass="input-field"/>
             </HBox>
 
             <!-- Description -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Description" styleClass="label"/>
-                <TextField fx:id="description" prefWidth="350"/>
+                <TextField fx:id="description" prefWidth="380" styleClass="input-field"/>
             </HBox>
 
             <!-- Lieu -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Lieu" styleClass="label"/>
-                <TextField fx:id="lieu" prefWidth="350"/>
+                <TextField fx:id="lieu" prefWidth="380" styleClass="input-field"/>
             </HBox>
 
             <!-- Date -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Date" styleClass="label"/>
-                <DatePicker fx:id="date" prefWidth="200"/>
+                <DatePicker fx:id="date" prefWidth="200" styleClass="input-field"/>
             </HBox>
 
             <!-- Image -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Image" styleClass="label"/>
-                <TextField fx:id="image" prefWidth="240" editable="false"/>
-                <Button text="Parcourir..." onAction="#handleImageBrowse"/>
+                <TextField fx:id="image" prefWidth="240" editable="false" styleClass="input-field"/>
+                <Button text="Parcourir..." onAction="#handleImageBrowse" styleClass="browse-button"/>
             </HBox>
 
-            <!-- Preview Image -->
-            <ImageView fx:id="previewImage" fitWidth="200" fitHeight="130"/>
+            <!-- Aperçu de l'image -->
+            <ImageView fx:id="previewImage" fitWidth="220" fitHeight="140" styleClass="image-preview"/>
 
             <!-- Sponsor -->
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label text="Sponsor" styleClass="label"/>
-                <ComboBox fx:id="comboBoxSponsor" prefWidth="200"/>
+                <ComboBox fx:id="comboBoxSponsor" prefWidth="200" styleClass="input-field"/>
             </HBox>
 
             <!-- Bouton Modifier -->
-            <Button fx:id="modifier" text="Modifier" onAction="#handleModifier" styleClass="submit-button"/>
+            <Button fx:id="modifier" text="Modifier l'événement" onAction="#handleModifier" styleClass="submit-button"/>
         </VBox>
 
     </children>
