@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierMedicaments"
+            prefWidth="600.0" prefHeight="550.0"
+            style="-fx-background-color: #f4f4f4;">
+   <children>
+      <VBox spacing="20.0" alignment="TOP_CENTER"
+            layoutX="50.0" layoutY="30.0" prefWidth="500.0">
+
+         <!-- Title -->
+         <Label text="Modifier Médicament" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+         <!-- Text Fields -->
+         <TextField fx:id="nomField" promptText="Nom"
+                    style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-padding: 8;"/>
+         <TextField fx:id="classeField" promptText="Classe"
+                    style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-padding: 8;"/>
+         <TextField fx:id="prixField" promptText="Prix"
+                    style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-padding: 8;"/>
+         <TextField fx:id="descriptionField" promptText="Description"
+                    style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-padding: 8;"/>
+
+         <!-- Image Zone with Button -->
+         <StackPane alignment="CENTER"
+                    style="-fx-border-color: #bbb; -fx-border-radius: 10; -fx-background-radius: 10;
+                           -fx-border-style: dashed; -fx-padding: 10; -fx-background-color: #ffffff;"
+                    prefHeight="180" prefWidth="400">
+
+            <ImageView fx:id="imagePreview"
+                       fitWidth="300" fitHeight="160" preserveRatio="true"
+                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 2, 2);"/>
+
+            <Button fx:id="uploadButton"
+                    text="📁 Parcourir une image"
+                    onAction="#handleUploadImage"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white;
+                           -fx-background-radius: 10; -fx-padding: 10 20;
+                           -fx-font-size: 14px;"
+                    StackPane.alignment="CENTER"/>
+         </StackPane>
+
+         <!-- Path (hidden or read-only if needed) -->
+         <TextField fx:id="imagePathField"
+                    promptText="Chemin de l'image"
+                    editable="false"
+                    style="-fx-font-size: 12px; -fx-background-color: #eaeaea;
+                           -fx-background-radius: 8; -fx-padding: 5 10;"/>
+
+         <!-- Action Buttons -->
+         <HBox spacing="30" alignment="CENTER">
+            <Button text="❌ Annuler" onAction="#handleCancel"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;
+                           -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+            <Button text="✅ Enregistrer" onAction="#handleSave"
+                    style="-fx-background-color: #2ecc71; -fx-text-fill: white;
+                           -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+         </HBox>
+      </VBox>
+   </children>
+</AnchorPane>
