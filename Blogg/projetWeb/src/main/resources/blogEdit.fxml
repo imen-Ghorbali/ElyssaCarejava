@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="500.0" prefWidth="650.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.Blogcontroller"
+            style="-fx-padding: 20; -fx-background-color: #f5f5f5;">
+
+    <children>
+        <VBox layoutX="20.0" layoutY="20.0" spacing="15" prefWidth="600.0">
+            <children>
+                <!-- Titre -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Titre:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+                    <TextField fx:id="titreField" prefWidth="450.0" promptText="Titre du blog"
+                               style="-fx-font-size: 14;"/>
+                </HBox>
+
+                <!-- Auteur -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Auteur:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+                    <TextField fx:id="auteurField" prefWidth="450.0" promptText="Nom de l'auteur"
+                               style="-fx-font-size: 14;"/>
+                </HBox>
+
+                <!-- Contenu -->
+                <HBox spacing="10" alignment="TOP_LEFT">
+                    <Label text="Contenu:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+                    <TextArea fx:id="contenuArea" prefWidth="450.0" prefHeight="150.0"
+                              promptText="Contenu du blog" wrapText="true"
+                              style="-fx-font-size: 14;"/>
+                </HBox>
+
+                <!-- Image -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Image:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+                    <TextField fx:id="imagePathField" prefWidth="350.0" editable="false"
+                               style="-fx-font-size: 14;"/>
+                    <Button fx:id="uploadButton" text="Parcourir" onAction="#handleUploadImage"
+                            style="-fx-font-size: 14; -fx-pref-width: 100;"/>
+                </HBox>
+
+                <!-- Prévisualisation image -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Aperçu:" style="-fx-font-weight: bold; -fx-min-width: 100;"/>
+                    <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="150" preserveRatio="true"
+                               style="-fx-border-color: #ccc; -fx-border-radius: 5;"/>
+                </HBox>
+
+                <!-- Boutons -->
+                <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                    <Button fx:id="submitButton" text="Enregistrer" onAction="#handleSubmit"
+                            style="-fx-font-size: 14; -fx-pref-width: 120; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button fx:id="listButton" text="Voir la liste" onAction="#handleShowList"
+                            style="-fx-font-size: 14; -fx-pref-width: 120; -fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

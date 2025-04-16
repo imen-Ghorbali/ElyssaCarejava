@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ListCommentaireController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Liste des Commentaires" />
+
+        <HBox spacing="10">
+            <Button text="Retour" onAction="#handleReturn"
+                    style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
+            <Button text="Ajouter" onAction="#handleAdd"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </HBox>
+
+        <ListView fx:id="commentListView" VBox.vgrow="ALWAYS" />
+    </VBox>
+</AnchorPane>

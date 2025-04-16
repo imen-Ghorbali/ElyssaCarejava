@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AddCommentaireController"
+            prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 20;">
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Ajouter un commentaire" />
+
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="100" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+
+            <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="Commentaire:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextArea fx:id="contenuField" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Likes:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="likeLabel" text="0" />
+                <Button fx:id="likeButton" text="+" />
+            </HBox>
+        </GridPane>
+
+        <HBox spacing="20" alignment="CENTER_RIGHT">
+            <Button text="Annuler" onAction="#handleCancel"
+                    style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+            <Button text="Ajouter" onAction="#handleSubmit"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
