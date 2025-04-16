@@ -135,4 +135,19 @@ public class affichersponsorController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void afficherListeEvenements() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sponsorTable.getScene().getWindow();
+            stage.setTitle("Liste des Événements");
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

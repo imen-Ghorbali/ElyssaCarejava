@@ -15,7 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
+import tn.esprit.models.sponsor;
 import tn.esprit.services.ServiceEvent;
+import tn.esprit.services.ServiceSponsor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -122,6 +124,14 @@ public class affichereventscontroller implements Initializable {
         Label dateLabel = new Label(e.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
         Label lieuLabel = new Label("📍 " + e.getLieu());
         Label sponsorLabel = new Label(e.getSponsor() != null ? "🎗 Sponsor: " + e.getSponsor().getName() : "");
+        sponsorLabel.setStyle("-fx-text-fill: #3498db; -fx-underline: true; -fx-cursor: hand;");
+
+        sponsorLabel.setOnMouseClicked(ev -> {
+            if (e.getSponsor() != null) {
+                openSponsorDetails(e.getSponsor().getId());
+            }
+        });
+
 
         Button btnModifier = new Button("Modifier");
         Button btnSupprimer = new Button("Supprimer");
@@ -141,6 +151,33 @@ public class affichereventscontroller implements Initializable {
         card.getChildren().addAll(imageView, titleLabel, lieuLabel, dateLabel, sponsorLabel, buttonsBox);
         return card;
     }
+    private void openSponsorDetails(int sponsorId) {
+        try {
+            // Retrieve the sponsor object using the sponsorId
+            ServiceSponsor serviceSponsor = new ServiceSponsor();
+            sponsor sponsorDetails = serviceSponsor.getById(sponsorId);
+
+            if (sponsorDetails != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/detailsponsor.fxml"));
+                Parent root = loader.load();
+
+                // Pass the sponsor object to the controller
+                DetailSponsorController controller = loader.getController();
+                controller.setSponsor(sponsorDetails);  // Pass the sponsor object
+
+                Stage stage = new Stage();
+                stage.setTitle("Détails du Sponsor");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
+                System.out.println("Sponsor not found!");
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     private void deleteEvent(events e) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);

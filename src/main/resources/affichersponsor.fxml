@@ -5,52 +5,61 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tn.esprit.controllers.affichersponsorController"
-            stylesheets="@css/styleaff.css"
-            prefWidth="800.0" prefHeight="600.0"
-            style="-fx-background-color: #f0f5f9;">
+             xmlns:fx="http://javafx.com/fxml"
+             fx:controller="tn.esprit.controllers.affichersponsorController"
+             stylesheets="@css/styleaff.css"
+             prefWidth="800.0" prefHeight="600.0"
+             style="-fx-background-color: #f0f5f9;">
 
-    <!-- Bandeau supérieur -->
-    <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-bar" BorderPane.alignment="TOP_CENTER">
-            <padding>
-                <Insets top="20" bottom="15" left="30" right="20"/>
-            </padding>
-            <Label text="Liste des Sponsors" styleClass="header-title"/>
-        </HBox>
-    </top>
+<!-- Bandeau supérieur -->
+<top>
+    <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-bar" BorderPane.alignment="TOP_CENTER">
+        <padding>
+            <Insets top="20" bottom="15" left="30" right="20"/>
+        </padding>
+        <Label text="Liste des Sponsors" styleClass="header-title"/>
+    </HBox>
+</top>
 
-    <!-- Contenu central : Tableau -->
-    <center>
-        <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets top="20" right="30" bottom="30" left="30"/>
-            </padding>
+<!-- Contenu central : Tableau -->
+<center>
+    <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER">
+        <padding>
+            <Insets top="20" right="30" bottom="30" left="30"/>
+        </padding>
 
-            <TableView fx:id="sponsorTable" prefHeight="500" prefWidth="740" styleClass="styled-table">
-                <columns>
-                    <TableColumn fx:id="idColumn" text="ID" visible="false" prefWidth="50"/>
-                    <TableColumn fx:id="nameColumn" text="Nom" prefWidth="200"/>
-                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="250"/>
-                    <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
-                    <TableColumn fx:id="prixColumn" text="Prix (DT)" prefWidth="100"/>
+        <TableView fx:id="sponsorTable" prefHeight="500" prefWidth="740" styleClass="styled-table">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" visible="false" prefWidth="50"/>
+                <TableColumn fx:id="nameColumn" text="Nom" prefWidth="200"/>
+                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="250"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
+                <TableColumn fx:id="prixColumn" text="Prix (DT)" prefWidth="100"/>
 
-                    <!-- Colonne Action avec boutons -->
-                    <TableColumn fx:id="actionColumn" text="Actions" prefWidth="150"/>
-                </columns>
-            </TableView>
+                <!-- Colonne Action avec boutons -->
+                <TableColumn fx:id="actionColumn" text="Actions" prefWidth="150"/>
+            </columns>
+        </TableView>
+
+        <!-- Ajout d'un VBox pour afficher les détails d'un sponsor -->
+        <VBox fx:id="eventCardsContainer" spacing="10" alignment="CENTER">
+            <!-- Détails du sponsor s'affichent ici -->
         </VBox>
-    </center>
 
-    <!-- Pied de page : Bouton Ajouter -->
-    <bottom>
-        <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="footer-bar" BorderPane.alignment="BOTTOM_CENTER">
-            <padding>
-                <Insets top="15" right="30" bottom="15" left="30"/>
-            </padding>
-            <Button text="➕ Ajouter un sponsor" fx:id="addButton" onAction="#AjouterSponsor" styleClass="add-button"/>
-        </HBox>
-    </bottom>
+    </VBox>
+</center>
+
+<!-- Pied de page : Bouton Ajouter -->
+<bottom>
+    <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="footer-bar" BorderPane.alignment="BOTTOM_CENTER">
+        <padding>
+            <Insets top="15" right="30" bottom="15" left="30"/>
+        </padding>
+        <Button text="➕ Ajouter un sponsor" fx:id="addButton" onAction="#AjouterSponsor" styleClass="add-button"/>
+        <Button fx:id="btnEvenements" text="📅 Liste des Événements" onAction="#afficherListeEvenements"
+                style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20;" />
+    </HBox>
+
+</bottom>
 
 </BorderPane>

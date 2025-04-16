@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.effect.DropShadow?>
+
+<VBox spacing="20" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.DetailSponsorController"
+      stylesheets="@css/styledetails.css"
+      style="-fx-background-color: #f4f6f9; -fx-padding: 30; -fx-border-radius: 15; -fx-background-radius: 15;">
+
+    <!-- Titre -->
+    <Label text="Détails du Sponsor" style="-fx-font-size: 28px; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-text-alignment: center; -fx-padding-bottom: 20;"/>
+
+    <!-- Section Image et Détails du Sponsor -->
+    <VBox spacing="15" alignment="CENTER" style="-fx-padding: 25; -fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 12; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 5, 5);">
+
+        <!-- Image du Sponsor -->
+        <ImageView fx:id="sponsorImageView" fitWidth="160" fitHeight="160" style="-fx-background-radius: 50%; -fx-border-radius: 50%; -fx-border-color: #e0e0e0; -fx-border-width: 3px;" />
+
+        <!-- Détails du Sponsor -->
+        <Label fx:id="nomLabel" style="-fx-font-size: 20px; -fx-text-fill: #34495e; -fx-font-weight: bold; -fx-padding-top: 15;"/>
+        <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d; -fx-padding-bottom: 10;" />
+        <Label fx:id="typeLabel" style="-fx-font-size: 16px; -fx-text-fill: #2980b9; -fx-font-weight: bold;" />
+        <Label fx:id="prixLabel" style="-fx-font-size: 18px; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+    </VBox>
+
+    <!-- Actions -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding-top: 20;">
+        <!-- Bouton Modifier -->
+        <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#modifierSponsor"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16px;">
+            <effect>
+                <DropShadow radius="10" offsetX="0" offsetY="4" color="rgba(0,0,0,0.1)" />
+            </effect>
+        </Button>
+
+        <!-- Bouton Ajouter -->
+        <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#ajouterSponsor"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16px;">
+            <effect>
+                <DropShadow radius="10" offsetX="0" offsetY="4" color="rgba(0,0,0,0.1)" />
+            </effect>
+        </Button>
+
+        <!-- Bouton Liste de Sponsors -->
+        <Button fx:id="btnAfficher" text="👁 Liste de Sponsors" onAction="#afficherTousLesSponsors"
+                style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16px;">
+            <effect>
+                <DropShadow radius="10" offsetX="0" offsetY="4" color="rgba(0,0,0,0.1)" />
+            </effect>
+        </Button>
+    </HBox>
+
+    <!-- Bouton Retour -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding-top: 30;">
+        <Button fx:id="btnRetour" text="Retour" onAction="#retourListe"
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16px;">
+            <effect>
+                <DropShadow radius="10" offsetX="0" offsetY="4" color="rgba(0,0,0,0.1)" />
+            </effect>
+        </Button>
+    </HBox>
+
+</VBox>
