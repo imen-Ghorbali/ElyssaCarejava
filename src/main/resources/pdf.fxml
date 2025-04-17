@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.PdfController" prefWidth="600" prefHeight="400">
+    <TableView fx:id="tableEvents" layoutX="20" layoutY="20" prefWidth="560" prefHeight="360">
+        <columns>
+            <TableColumn fx:id="colTitre" text="Titre" prefWidth="150"/>
+            <TableColumn fx:id="colLieu" text="Lieu" prefWidth="150"/>
+            <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+            <TableColumn fx:id="colPdf" text="Générer PDF" prefWidth="100"/>
+        </columns>
+    </TableView>
+</AnchorPane>

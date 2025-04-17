@@ -1,34 +1,33 @@
 package tn.esprit.models;
 
-public class medicaments {
-    private int id, prix;
-    private String nom, description, classe, image;
+public class Medicaments {
+    private int id;
+    private String nom;
+    private String description;
+    private String classe;
+    private int prix;
+    private String image;
+    private MaterielMedical materielRequis;
 
-    public medicaments() {}
+    public Medicaments() {
+    }
 
-    public medicaments(int id, int prix, String nom, String description, String classe, String image) {
-        this.id = id;
-        this.prix = prix;
+    public Medicaments(String nom, String description, String classe, int prix, String image, MaterielMedical materielRequis) {
         this.nom = nom;
         this.description = description;
         this.classe = classe;
+        this.prix = prix;
         this.image = image;
+        this.materielRequis = materielRequis;
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getPrix() {
-        return prix;
-    }
-
-    public void setPrix(int prix) {
-        this.prix = prix;
     }
 
     public String getNom() {
@@ -55,6 +54,14 @@ public class medicaments {
         this.classe = classe;
     }
 
+    public int getPrix() {
+        return prix;
+    }
+
+    public void setPrix(int prix) {
+        this.prix = prix;
+    }
+
     public String getImage() {
         return image;
     }
@@ -63,16 +70,24 @@ public class medicaments {
         this.image = image;
     }
 
+    public MaterielMedical getMaterielRequis() {
+        return materielRequis;
+    }
+
+    public void setMaterielRequis(MaterielMedical materielRequis) {
+        this.materielRequis = materielRequis;
+    }
+
     @Override
     public String toString() {
-        return "medicaments{" +
+        return "Medicament{" +
                 "id=" + id +
-                ", prix=" + prix +
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 ", classe='" + classe + '\'' +
+                ", prix=" + prix +
                 ", image='" + image + '\'' +
+                ", materielRequis=" + (materielRequis != null ? materielRequis.getNom() : "Aucun") +
                 '}';
     }
-
 }

@@ -4,7 +4,9 @@ module projetWeb {requires java.sql;
     requires javafx.graphics;
     requires javafx.base;
     requires java.desktop;
-
+    requires jbcrypt;
+    requires org.apache.poi.ooxml;
+    requires itextpdf;
     exports tn.esprit.models;
     exports tn.esprit.services;
     exports tn.esprit.interfaces;

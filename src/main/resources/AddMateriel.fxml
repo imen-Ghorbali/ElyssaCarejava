@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AddMaterielMedicalController"
+            prefWidth="600.0" prefHeight="550.0"
+            style="-fx-background-color: #f4f4f4;">
+    <children>
+        <!-- Conteneur avec bordures arrondies -->
+        <VBox spacing="20" alignment="TOP_CENTER"
+              layoutX="50" layoutY="30" prefWidth="500"
+              style="-fx-background-color: white; -fx-border-radius: 20; -fx-padding: 20; -fx-border-color: #ccc; -fx-border-width: 2;">
+            <!-- Titre -->
+            <Label text="Ajouter Matériel Médical" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e6d9f;"/>
+
+            <!-- Champs de saisie -->
+            <TextField fx:id="nomField" promptText="Nom du matériel"
+                       style="-fx-pref-width: 350px; -fx-padding: 10; -fx-font-size: 16px; -fx-border-radius: 10;"/>
+            <TextField fx:id="descriptionField" promptText="Description"
+                       style="-fx-pref-width: 350px; -fx-padding: 10; -fx-font-size: 16px; -fx-border-radius: 10;"/>
+            <TextField fx:id="prixField" promptText="Prix"
+                       style="-fx-pref-width: 350px; -fx-padding: 10; -fx-font-size: 16px; -fx-border-radius: 10;"/>
+            <TextField fx:id="statutField" promptText="Statut"
+                       style="-fx-pref-width: 350px; -fx-padding: 10; -fx-font-size: 16px; -fx-border-radius: 10;"/>
+
+            <!-- Sélecteur d'image -->
+            <StackPane alignment="CENTER" prefHeight="180" prefWidth="400"
+                       style="-fx-border-color: #bbb; -fx-border-style: dashed; -fx-background-color: white; -fx-border-radius: 10;">
+                <ImageView fx:id="imagePreview" fitWidth="300" fitHeight="160" preserveRatio="true"/>
+                <Button fx:id="uploadButton" text="📁 Ajouter une image" onAction="#handleUploadImage"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-border-radius: 15;"/>
+            </StackPane>
+
+            <!-- Champ de chemin de l'image -->
+            <TextField fx:id="imagePathField" promptText="Chemin de l'image" editable="false"
+                       style="-fx-pref-width: 350px; -fx-padding: 10; -fx-font-size: 16px; -fx-border-radius: 10;"/>
+
+            <!-- Boutons -->
+            <HBox spacing="30" alignment="CENTER">
+                <Button text="✅ Enregistrer" onAction="#handleSave"
+                        style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 15; -fx-pref-width: 120px;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

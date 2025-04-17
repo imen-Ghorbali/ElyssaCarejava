@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainLayout" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controllers.NavbarController"
+            stylesheets="@css/navbar.css"
+            prefWidth="900" prefHeight="600">
+
+    <!-- Barre de navigation en haut -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #2C3E50;" prefHeight="60">
+            <padding>
+                <Insets top="10" left="10"/>
+            </padding>
+            <Button fx:id="btnMenu" style="-fx-background-color: transparent;">
+                <graphic>
+                    <ImageView fx:id="menuIcon" fitHeight="30" fitWidth="30">
+                        <image>
+                            <Image url="@icones/menu.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Label text="Dashboard" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <!-- Menu latéral -->
+    <left>
+        <VBox fx:id="menuDrawer"
+              spacing="15"
+              style="-fx-background-color: #34495E;"
+              visible="false"
+              managed="false"
+              prefWidth="200">
+            <padding>
+                <Insets top="20" right="10" bottom="20" left="10"/>
+            </padding>
+            <Button fx:id="btnUser" text="🏠 Profil" styleClass="nav-button"/>
+            <Button fx:id="btnAccueil" text="🏠 Accueil" styleClass="nav-button"/>
+            <Button fx:id="btnEvenements" text="📅 Événements" styleClass="nav-button"/>
+            <Button fx:id="btnConsultation" text="📅 consultation" styleClass="nav-button"/>
+        </VBox>
+    </left>
+
+    <!-- Zone de contenu -->
+    <center>
+        <AnchorPane fx:id="contentPane" style="-fx-background-color: #ECF0F1;" />
+    </center>
+
+</BorderPane>

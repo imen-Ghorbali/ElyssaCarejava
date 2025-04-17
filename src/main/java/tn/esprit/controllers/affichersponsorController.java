@@ -142,6 +142,8 @@ public class affichersponsorController implements Initializable {
             Parent root = loader.load();
 
             Stage stage = (Stage) sponsorTable.getScene().getWindow();
+
+
             stage.setTitle("Liste des Événements");
             stage.setScene(new Scene(root));
 

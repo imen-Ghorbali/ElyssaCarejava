@@ -1,9 +1,12 @@
 package tn.esprit.models;
+import java.util.List;
+import java.util.ArrayList;
 
 public class user {
     private int id ;
     private String name, email, password  ;
     private Role roles;
+    private List<consultation> consultations;
 
 
     public user() {}
@@ -13,6 +16,14 @@ public class user {
         this.email = email;
         this.roles = roles;
         this.password = password;
+
+    }
+    public List<consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<consultation> consultations) {
+        this.consultations = consultations;
     }
 
     public int getId() {
@@ -55,8 +66,20 @@ public class user {
         this.password = password;
     }
 
+    public boolean isPatient() {
+        return roles == Role.PATIENT;
+    }
+
+    public boolean isDoctor() {
+        return roles == Role.DOCTOR;
+    }
+    public boolean isAdmin() {
+        return roles == Role.ADMIN;
+    }
+
+
     @Override
-    public String toString() {
+   /* public String toString() {
         return "user{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -65,5 +88,9 @@ public class user {
                 ", password='" + password + '\'' +
                 '}';
     }
-}
+    @Override*/
+    public String toString() {
+        return this.name;  // ou email ou autre champ représentatif
+    }
 
+}

@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
 import tn.esprit.models.sponsor;
+import tn.esprit.services.PdfService;
 import tn.esprit.services.ServiceEvent;
 import tn.esprit.services.ServiceSponsor;
 
@@ -36,8 +37,6 @@ public class affichereventscontroller implements Initializable {
 
     @FXML
     private TextField filtreTextField;
-
-
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
     private ObservableList<events> allEvents = FXCollections.observableArrayList();
@@ -123,7 +122,7 @@ public class affichereventscontroller implements Initializable {
 
         Label dateLabel = new Label(e.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
         Label lieuLabel = new Label("📍 " + e.getLieu());
-        Label sponsorLabel = new Label(e.getSponsor() != null ? "🎗 Sponsor: " + e.getSponsor().getName() : "");
+        Label sponsorLabel = new Label("🎗 Sponsor: " + (e.getSponsor() != null ? e.getSponsor().getName() : ""));
         sponsorLabel.setStyle("-fx-text-fill: #3498db; -fx-underline: true; -fx-cursor: hand;");
 
         sponsorLabel.setOnMouseClicked(ev -> {
@@ -132,25 +131,42 @@ public class affichereventscontroller implements Initializable {
             }
         });
 
-
+        // Boutons Modifier, Supprimer, Détails, et PDF
         Button btnModifier = new Button("Modifier");
         Button btnSupprimer = new Button("Supprimer");
         Button btnDetails = new Button("Détails");
+        Button btnPdf = new Button("Générer PDF");
 
         btnModifier.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
         btnSupprimer.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white;");
         btnDetails.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white;");
+        btnPdf.setStyle("-fx-background-color: #8e44ad; -fx-text-fill: white;");
 
         btnModifier.setOnAction(ev -> openModifierForm(e));
         btnSupprimer.setOnAction(ev -> deleteEvent(e));
         btnDetails.setOnAction(ev -> openDetailsForm(e));
 
-        HBox buttonsBox = new HBox(5, btnModifier, btnSupprimer, btnDetails);
+        // Action pour générer le PDF
+        btnPdf.setOnAction(ev -> generatePdf(e));
+
+        HBox buttonsBox = new HBox(5, btnModifier, btnSupprimer, btnDetails, btnPdf);
         buttonsBox.setPadding(new Insets(5, 0, 0, 0));
 
         card.getChildren().addAll(imageView, titleLabel, lieuLabel, dateLabel, sponsorLabel, buttonsBox);
         return card;
     }
+
+    private void generatePdf(events e) {
+        PdfService pdfService = new PdfService();
+        String contenuPdf = "Titre : " + e.getTitle() + "\n" +
+                "Lieu : " + e.getLieu() + "\n" +
+                "Date : " + e.getDate() + "\n" +
+                "Description : " + e.getDescription() + "\n" +
+                "Sponsor : " + (e.getSponsor() != null ? e.getSponsor().getName() : "Aucun");
+        String nomFichierPdf = e.getTitle().replaceAll("\\s+", "_") + "_details.pdf";
+        pdfService.genererPdf(nomFichierPdf, contenuPdf);
+    }
+
     private void openSponsorDetails(int sponsorId) {
         try {
             // Retrieve the sponsor object using the sponsorId
@@ -177,7 +193,6 @@ public class affichereventscontroller implements Initializable {
             ex.printStackTrace();
         }
     }
-
 
     private void deleteEvent(events e) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -212,13 +227,15 @@ public class affichereventscontroller implements Initializable {
             Parent root = loader.load();
             detailseventsController controller = loader.getController();
             controller.setEventId(e.getId());
-            Stage stage = (Stage) eventCardsContainer.getScene().getWindow();
+
+            Stage stage = (Stage) eventCardsContainer.getScene().getWindow(); // Corrected this line
             stage.setScene(new Scene(root));
             stage.setTitle("Détails de l'Événement");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 
     @FXML
     private void ajouterEvent() {
@@ -237,5 +254,4 @@ public class affichereventscontroller implements Initializable {
     private void refreshEvents() {
         loadEvents();  // Rafraîchir les événements
     }
-
 }

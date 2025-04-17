@@ -1,0 +1,7 @@
+/* fichier navbar.css */
+.root {
+    -fx-background-image: url("icones/hopital.png");
+    -fx-background-size: cover;  /* Couvrir toute la scène */
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
