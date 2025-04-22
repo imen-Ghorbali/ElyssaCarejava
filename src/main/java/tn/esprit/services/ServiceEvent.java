@@ -6,6 +6,7 @@ import tn.esprit.utils.DataBase;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,6 +192,43 @@ public class ServiceEvent {
             ex.printStackTrace();
         }
         return null;
+    }
+    public List<events> getEventsForMonth(YearMonth yearMonth) {
+        List<events> eventsList = new ArrayList<>();
+
+        // Get database connection from the singleton DataBase class
+        Connection connection = DataBase.getInstance().getCnx();
+
+        String sql = "SELECT * FROM events WHERE YEAR(date) = ? AND MONTH(date) = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Set the parameters for the query
+            statement.setInt(1, yearMonth.getYear());
+            statement.setInt(2, yearMonth.getMonthValue());
+
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the result set and create event objects
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                String image = resultSet.getString("image");
+                String lieu = resultSet.getString("lieu");
+                LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                // Assuming you have a method to retrieve the sponsor or related data if needed.
+                // Example: sponsor sponsor = getSponsorById(resultSet.getInt("sponsor_id"));
+
+                events event = new events(id, title, description, image, lieu, date, null);  // Replace null with sponsor if applicable
+                eventsList.add(event);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the error for debugging
+        }
+
+        return eventsList;
     }
 
 }

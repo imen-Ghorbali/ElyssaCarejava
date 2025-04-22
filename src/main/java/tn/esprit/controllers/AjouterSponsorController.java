@@ -3,11 +3,9 @@ package tn.esprit.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import tn.esprit.models.sponsor;
@@ -38,16 +36,17 @@ public class AjouterSponsorController {
         String type = typeField.getText().trim();
         String prixText = prixField.getText().trim();
 
-        if (name.isEmpty()) {
-            showErrorAlert("Erreur", "Le nom du sponsor est obligatoire");
+        // Validation : Les champs ne doivent pas être vides, doivent contenir au moins 8 caractères, et ne doivent pas contenir d'espaces
+        if (!isValidField(name)) {
+            showErrorAlert("Erreur", "Le nom du sponsor est obligatoire (au moins 8 caractères et sans espaces)");
             return;
         }
-        if (description.isEmpty()) {
-            showErrorAlert("Erreur", "La description est obligatoire");
+        if (!isValidField(description)) {
+            showErrorAlert("Erreur", "La description est obligatoire (au moins 8 caractères et sans espaces)");
             return;
         }
-        if (type.isEmpty()) {
-            showErrorAlert("Erreur", "Le type est obligatoire");
+        if (!isValidField(type)) {
+            showErrorAlert("Erreur", "Le type est obligatoire (au moins 8 caractères et sans espaces)");
             return;
         }
         if (prixText.isEmpty()) {
@@ -75,6 +74,10 @@ public class AjouterSponsorController {
             showErrorAlert("Erreur", "Erreur technique: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private boolean isValidField(String value) {
+        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
     }
 
     private void navigateToAfficherSponsors() {

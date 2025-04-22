@@ -48,7 +48,7 @@ public class modifiereventsController {
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
 
     public void setEvent(events e) {
-        this.currentEvent = e;
+        this.currentEvent = e; // Variable d'instance permettant de stocker l'événement à modifier
 
         titleField.setText(e.getTitle());
         description.setText(e.getDescription());
@@ -121,6 +121,25 @@ public class modifiereventsController {
             return;
         }
 
+        // Validation des champs
+        if (!isValidField(titleField.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le titre doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (!isValidField(description.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (!isValidField(lieu.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le lieu doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (image.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "L'image est obligatoire.");
+            return;
+        }
+
+        // Mise à jour de l'événement
         currentEvent.setTitle(titleField.getText());
         currentEvent.setDescription(description.getText());
         currentEvent.setLieu(lieu.getText());
@@ -143,6 +162,10 @@ public class modifiereventsController {
 
         // Naviguer vers la liste des événements
         navigateToEventList();
+    }
+
+    private boolean isValidField(String value) {
+        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -168,12 +191,11 @@ public class modifiereventsController {
 
             // Rafraîchir la liste des événements dans le contrôleur de la liste
             affichereventscontroller eventListController = loader.getController();
-             // Appel de la méthode pour rafraîchir la liste
+            // Appel de la méthode pour rafraîchir la liste
 
         } catch (IOException ex) {
             ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des événements.");
         }
     }
-
 }

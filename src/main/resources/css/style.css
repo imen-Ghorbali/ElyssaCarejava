@@ -148,3 +148,35 @@
     -fx-border-color: #5dade2;  /* Couleur au focus pour une meilleure interaction */
     -fx-background-color: #f1faff;  /* Légère teinte de fond au focus */
 }
+/* style.css */
+
+/* Pagination container */
+#paginationContainer {
+    -fx-background-color: #ecf0f1;
+    -fx-padding: 10px;
+    -fx-spacing: 8px;
+    -fx-alignment: center;
+}
+
+/* Boutons de pagination */
+.pagination-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 1, 1);
+}
+
+/* Hover effect */
+.pagination-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Page sélectionnée */
+.pagination-button.selected {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+}
+

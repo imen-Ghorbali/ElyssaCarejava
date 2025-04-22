@@ -1,0 +1,55 @@
+/* Styles for the Calendar */
+#calendarGrid {
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#calendarGrid .cell {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);
+}
+
+#calendarGrid .cell:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-cursor: hand;
+}
+
+/* Styling for navigation buttons */
+.nav-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Styling for month label */
+.month-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+/* Optional: Styling for the whole layout */
+AnchorPane {
+    -fx-background-color: #e9ecef;
+    -fx-padding: 20px;
+}
+
+/* Grid and columns styling */
+.columnConstraints {
+    -fx-alignment: center;
+}

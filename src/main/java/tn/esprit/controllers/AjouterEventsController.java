@@ -8,15 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
-import tn.esprit.services.ServiceEvent;
 import tn.esprit.models.sponsor;
-import javafx.event.ActionEvent;
+import tn.esprit.services.ServiceEvent;
 import tn.esprit.services.ServiceSponsor;
+import javafx.event.ActionEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,8 +23,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class AjouterEventsController {   @FXML
-private TextField titleField;
+public class AjouterEventsController {
+
+    @FXML
+    private TextField titleField;
 
     @FXML
     private TextField description;
@@ -41,8 +42,10 @@ private TextField titleField;
 
     @FXML
     private TextField image;
+
     @FXML
     private ComboBox<sponsor> comboBoxSponsor;
+
     private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @FXML
@@ -70,24 +73,29 @@ private TextField titleField;
         String imagePathValue = image.getText().trim();
         LocalDate dateValue = date.getValue();
         sponsor selectedSponsor = comboBoxSponsor.getValue();
-        if (titre.isEmpty()) {
-            showErrorAlert("Erreur", "Le titre de l'événement est obligatoire");
+
+        if (!isValidField(titre)) {
+            showErrorAlert("Erreur", "Le titre est obligatoire (au moins 8 caractères, sans espaces uniquement).");
             return;
         }
-        if (descriptionField.isEmpty()) {
-            showErrorAlert("Erreur", "La description est obligatoire");
+        if (!isValidField(descriptionField)) {
+            showErrorAlert("Erreur", "La description est obligatoire (au moins 8 caractères, sans espaces uniquement).");
             return;
         }
-        if (lieuField.isEmpty()) {
-            showErrorAlert("Erreur", "Le lieu est obligatoire");
+        if (!isValidField(lieuField)) {
+            showErrorAlert("Erreur", "Le lieu est obligatoire (au moins 8 caractères, sans espaces uniquement).");
             return;
         }
         if (dateValue == null) {
-            showErrorAlert("Erreur", "La date est obligatoire");
+            showErrorAlert("Erreur", "La date est obligatoire.");
             return;
         }
-        if (imagePathValue.isEmpty()) {
-            showErrorAlert("Erreur", "Veuillez sélectionner une image");
+        if (!isValidField(imagePathValue)) {
+            showErrorAlert("Erreur", "Veuillez sélectionner une image (chemin valide avec au moins 8 caractères).");
+            return;
+        }
+        if (selectedSponsor == null) {
+            showErrorAlert("Erreur", "Veuillez sélectionner un sponsor.");
             return;
         }
 
@@ -113,10 +121,14 @@ private TextField titleField;
         }
     }
 
+    private boolean isValidField(String value) {
+        return value != null && !value.trim().isEmpty() && value.trim().length() >= 8;
+    }
+
     private void navigateToAfficherEvents() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
-            BorderPane root = loader.load(); // ✅
+            BorderPane root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) titleField.getScene().getWindow();
             stage.setScene(scene);
@@ -145,37 +157,42 @@ private TextField titleField;
 
     @FXML
     void initialize() {
-        // Récupérer tous les sponsors depuis la base de données
         ServiceSponsor serviceSponsor = new ServiceSponsor();
-        List<sponsor> sponsors = serviceSponsor.getAll(); // Méthode pour récupérer tous les sponsors
+        List<sponsor> sponsors = serviceSponsor.getAll();
 
-        // Mettre à jour le ComboBox avec les sponsors
         ObservableList<sponsor> sponsorList = FXCollections.observableArrayList(sponsors);
         comboBoxSponsor.setItems(sponsorList);
 
-        // Affichage du nom du sponsor dans le ComboBox
         comboBoxSponsor.setCellFactory(cell -> new ListCell<sponsor>() {
             @Override
             protected void updateItem(sponsor item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item != null) {
-                    setText(item.getName());  // Afficher le nom du sponsor
-                }
+                setText(empty || item == null ? null : item.getName());
             }
         });
 
-        // Affichage du nom du sponsor sélectionné dans le bouton du ComboBox
         comboBoxSponsor.setButtonCell(new ListCell<sponsor>() {
             @Override
             protected void updateItem(sponsor item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item != null) {
-                    setText(item.getName());  // Afficher le nom du sponsor dans le bouton
+                setText(empty || item == null ? null : item.getName());
+            }
+        });
+
+        // 🔐 Restreindre le DatePicker à aujourd’hui + futur uniquement
+        date.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // optionnel : fond rose pour les dates bloquées
                 }
             }
         });
-        // Initialisation future si nécessaire
-    }
 
+        // Optionnel : définir la date par défaut sur aujourd'hui
+        date.setValue(LocalDate.now());
+    }
 
 }

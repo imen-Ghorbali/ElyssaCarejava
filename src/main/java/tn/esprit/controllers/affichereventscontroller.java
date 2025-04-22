@@ -31,25 +31,30 @@ public class affichereventscontroller implements Initializable {
 
     @FXML
     private FlowPane eventCardsContainer;
-
+    @FXML
+    private HBox paginationContainer;  // Conteneur pour les numéros de page
+    private int totalPages;
     @FXML
     private ComboBox<String> triComboBox;
 
     @FXML
     private TextField filtreTextField;
 
+    @FXML
+    private AnchorPane contentPane;
+
     private final ServiceEvent serviceEvent = new ServiceEvent();
     private ObservableList<events> allEvents = FXCollections.observableArrayList();
     private FilteredList<events> filteredEvents;
-
+    private static final int ITEMS_PER_PAGE = 6; // Nombre d'éléments par page
+    private int currentPage = 0; // Page actuelle
+    private ObservableList<events> paginatedEvents = FXCollections.observableArrayList(); // Liste filtrée pour la pagination
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialiser le tri
         triComboBox.getItems().addAll("Nom", "Date", "Popularité");
         triComboBox.setValue("Nom");
         triComboBox.setOnAction(event -> loadEvents());
 
-        // Initialiser le filtrage
         filtreTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (filteredEvents != null) {
                 filteredEvents.setPredicate(e -> {
@@ -59,7 +64,8 @@ public class affichereventscontroller implements Initializable {
                             || (e.getLieu() != null && e.getLieu().toLowerCase().contains(lower))
                             || (e.getSponsor() != null && e.getSponsor().getName() != null && e.getSponsor().getName().toLowerCase().contains(lower));
                 });
-                afficherCartes();  // Rafraîchir les cartes après filtrage
+                updatePagination();
+                afficherCartes();
             }
         });
 
@@ -70,32 +76,27 @@ public class affichereventscontroller implements Initializable {
         eventCardsContainer.getChildren().clear();
         List<events> list = serviceEvent.getAll();
         allEvents.setAll(list);
-
-        // Initialisation de FilteredList après avoir mis à jour allEvents
         filteredEvents = new FilteredList<>(allEvents, e -> true);
-
-        // Appliquer le tri et afficher les cartes
         appliquerTri();
+        updatePagination();          // <-- Ajoute ceci
+        updatePaginatedEvents();
         afficherCartes();
     }
 
     private void appliquerTri() {
         String critereTri = triComboBox.getValue();
         if (critereTri == null) return;
-
         Comparator<events> comparator = switch (critereTri) {
             case "Nom" -> Comparator.comparing(events::getTitle);
             case "Date" -> Comparator.comparing(events::getDate);
             default -> null;
         };
-
-        if (comparator != null)
-            FXCollections.sort(allEvents, comparator);
+        if (comparator != null) FXCollections.sort(allEvents, comparator);
     }
 
     private void afficherCartes() {
         eventCardsContainer.getChildren().clear();
-        for (events e : filteredEvents) {
+        for (events e : paginatedEvents) {
             VBox card = createEventCard(e);
             eventCardsContainer.getChildren().add(card);
         }
@@ -121,17 +122,14 @@ public class affichereventscontroller implements Initializable {
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Label dateLabel = new Label(e.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-        Label lieuLabel = new Label("📍 " + e.getLieu());
-        Label sponsorLabel = new Label("🎗 Sponsor: " + (e.getSponsor() != null ? e.getSponsor().getName() : ""));
+        Label lieuLabel = new Label("\uD83D\uDCCD " + e.getLieu());
+        Label sponsorLabel = new Label("\uD83D\uDDFD Sponsor: " + (e.getSponsor() != null ? e.getSponsor().getName() : ""));
         sponsorLabel.setStyle("-fx-text-fill: #3498db; -fx-underline: true; -fx-cursor: hand;");
 
         sponsorLabel.setOnMouseClicked(ev -> {
-            if (e.getSponsor() != null) {
-                openSponsorDetails(e.getSponsor().getId());
-            }
+            if (e.getSponsor() != null) openSponsorDetails(e.getSponsor().getId());
         });
 
-        // Boutons Modifier, Supprimer, Détails, et PDF
         Button btnModifier = new Button("Modifier");
         Button btnSupprimer = new Button("Supprimer");
         Button btnDetails = new Button("Détails");
@@ -145,8 +143,6 @@ public class affichereventscontroller implements Initializable {
         btnModifier.setOnAction(ev -> openModifierForm(e));
         btnSupprimer.setOnAction(ev -> deleteEvent(e));
         btnDetails.setOnAction(ev -> openDetailsForm(e));
-
-        // Action pour générer le PDF
         btnPdf.setOnAction(ev -> generatePdf(e));
 
         HBox buttonsBox = new HBox(5, btnModifier, btnSupprimer, btnDetails, btnPdf);
@@ -169,17 +165,14 @@ public class affichereventscontroller implements Initializable {
 
     private void openSponsorDetails(int sponsorId) {
         try {
-            // Retrieve the sponsor object using the sponsorId
             ServiceSponsor serviceSponsor = new ServiceSponsor();
             sponsor sponsorDetails = serviceSponsor.getById(sponsorId);
 
             if (sponsorDetails != null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/detailsponsor.fxml"));
                 Parent root = loader.load();
-
-                // Pass the sponsor object to the controller
                 DetailSponsorController controller = loader.getController();
-                controller.setSponsor(sponsorDetails);  // Pass the sponsor object
+                controller.setSponsor(sponsorDetails);
 
                 Stage stage = new Stage();
                 stage.setTitle("Détails du Sponsor");
@@ -188,7 +181,6 @@ public class affichereventscontroller implements Initializable {
             } else {
                 System.out.println("Sponsor not found!");
             }
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -202,10 +194,46 @@ public class affichereventscontroller implements Initializable {
         confirm.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 serviceEvent.delete(e.getId());
-                loadEvents();  // Rafraîchir l'affichage après suppression
+                loadEvents();
             }
         });
     }
+    private void updatePagination() {
+        paginationContainer.getChildren().clear();
+        totalPages = (int) Math.ceil((double) filteredEvents.size() / ITEMS_PER_PAGE);
+
+        for (int i = 0; i < totalPages; i++) {
+            final int pageIndex = i;
+            Button pageButton = new Button(String.valueOf(i + 1));
+            pageButton.getStyleClass().add("pagination-button");
+
+            if (i == currentPage) {
+                pageButton.getStyleClass().add("selected");
+            }
+
+            pageButton.setOnAction(event -> {
+                onPageButtonClicked(pageIndex);
+                updatePagination(); // Pour mettre à jour la classe "selected"
+            });
+
+            paginationContainer.getChildren().add(pageButton);
+        }
+    }
+
+
+    @FXML
+    private void onPageButtonClicked(int pageNumber) {
+        currentPage = pageNumber;  // Mettre à jour la page actuelle
+        updatePaginatedEvents();   // Mettre à jour les événements à afficher
+        afficherCartes();          // Mettre à jour l'affichage des cartes
+    }
+
+    private void updatePaginatedEvents() {
+        int startIndex = currentPage * ITEMS_PER_PAGE;
+        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredEvents.size());
+        paginatedEvents.setAll(filteredEvents.subList(startIndex, endIndex));
+    }
+
 
     private void openModifierForm(events e) {
         try {
@@ -228,14 +256,13 @@ public class affichereventscontroller implements Initializable {
             detailseventsController controller = loader.getController();
             controller.setEventId(e.getId());
 
-            Stage stage = (Stage) eventCardsContainer.getScene().getWindow(); // Corrected this line
+            Stage stage = (Stage) eventCardsContainer.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Détails de l'Événement");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-
 
     @FXML
     private void ajouterEvent() {
@@ -251,7 +278,18 @@ public class affichereventscontroller implements Initializable {
     }
 
     @FXML
+    public void showCalendar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendar.fxml"));
+            AnchorPane calendarView = loader.load();
+            contentPane.getChildren().setAll(calendarView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void refreshEvents() {
-        loadEvents();  // Rafraîchir les événements
+        loadEvents();
     }
 }

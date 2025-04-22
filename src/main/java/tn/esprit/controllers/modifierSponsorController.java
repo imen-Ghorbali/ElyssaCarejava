@@ -46,6 +46,24 @@ public class modifierSponsorController {
             return;
         }
 
+        // Validation des champs
+        if (!isValidField(nomField.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (!isValidField(descriptionField.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (!isValidField(typeField.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le type doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            return;
+        }
+        if (prixField.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le prix est obligatoire.");
+            return;
+        }
+
         try {
             int prix = Integer.parseInt(prixField.getText());
 
@@ -62,6 +80,10 @@ public class modifierSponsorController {
         }
     }
 
+    private boolean isValidField(String value) {
+        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
+    }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -69,9 +91,10 @@ public class modifierSponsorController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     private void navigateTosponsorList() {
         try {
-            // Charger la vue de la liste des événements
+            // Charger la vue de la liste des sponsors
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichersponsor.fxml"));
             Parent root = loader.load();
 
@@ -82,14 +105,13 @@ public class modifierSponsorController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-            // Rafraîchir la liste des événements dans le contrôleur de la liste
+            // Rafraîchir la liste des sponsors dans le contrôleur de la liste
             affichersponsorController affichersponsorController = loader.getController();
             // Appel de la méthode pour rafraîchir la liste
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des événements.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des sponsors.");
         }
     }
 }
-
