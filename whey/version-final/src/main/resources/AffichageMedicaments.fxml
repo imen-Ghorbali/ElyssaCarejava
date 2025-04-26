@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane fx:controller="tn.esprit.controllers.AffichageMedicaments"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="700.0" prefWidth="1000.0">
+
+   <VBox alignment="TOP_CENTER" spacing="20.0"
+         AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+
+      <!-- Titre principal -->
+      <Label text="💊 Gestion des Médicaments" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495e;" />
+
+      <!-- Barre d'outils -->
+      <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #ecf0f1; -fx-padding: 10;">
+         <TextField fx:id="searchField" promptText="🔍 Rechercher un Médicament..."
+                    style="-fx-padding: 10; -fx-border-radius: 8px; -fx-border-color: #3498db; -fx-background-color: #fff;" HBox.hgrow="ALWAYS"/>
+
+         <ComboBox fx:id="materielCombo" promptText="Sélectionner un matériel"
+                   style="-fx-padding: 10; -fx-border-radius: 8px; -fx-border-color: #3498db; -fx-background-color: #fff;" prefWidth="200"/>
+
+         <Button onAction="#handleAssignMateriel" text="Assigner"
+                 style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-border-width: 0;"/>
+
+         <Button onAction="#handleAdd" text="➕"
+                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-border-width: 0;"/>
+
+         <Button onAction="#handleEdit" text="✏️"
+                 style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-border-width: 0;"/>
+
+         <Button onAction="#handleDelete" text="🗑️"
+                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-border-width: 0;"/>
+
+         <Button onAction="#handleExportExcel" text="📁"
+                 style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-border-width: 0;"/>
+      </HBox>
+
+      <!-- Tableau des médicaments -->
+      <TableView fx:id="medicamentsTable">
+         <columns>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="240"/>
+            <TableColumn fx:id="colClasse" text="Classe" prefWidth="240"/>
+            <TableColumn fx:id="colPrix" text="Prix (TND)" prefWidth="180"/>
+            <TableColumn fx:id="colMateriel" text="Matériel" prefWidth="300"/>
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+
+      <!-- Panneau de détails -->
+      <VBox fx:id="detailsContainer" spacing="15" visible="false">
+         <Label text="Détails du Médicament" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+         <HBox spacing="30" alignment="CENTER_LEFT">
+            <ImageView fx:id="detailImage" fitHeight="180" fitWidth="180" preserveRatio="true"/>
+            <VBox spacing="10">
+               <Label fx:id="detailNom" style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+               <Label fx:id="detailClasse" style="-fx-font-size: 14px; -fx-text-fill: #34495e;"/>
+               <Label fx:id="detailPrix" style="-fx-font-size: 14px; -fx-text-fill: #34495e;"/>
+               <Label fx:id="detailMateriel" style="-fx-font-size: 14px; -fx-text-fill: #34495e;"/>
+               <Label fx:id="detailDescription" style="-fx-font-size: 14px; -fx-text-fill: #34495e;"/>
+            </VBox>
+         </HBox>
+      </VBox>
+
+      <!-- Pagination et statut -->
+      <Pagination fx:id="pagination" prefWidth="400.0"/>
+      <Label fx:id="filePathLabel" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+   </VBox>
+</AnchorPane>
