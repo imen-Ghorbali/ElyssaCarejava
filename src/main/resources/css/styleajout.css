@@ -1,79 +1,90 @@
-/* Style général */
+/* Style de base */
 .root {
-    -fx-background-color: #f0f8ff; /* bleu très clair */
-    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-family: 'Arial';
+    -fx-background-color: #f5f5f5;
 }
 
 /* Titre principal */
 .header-title {
-    -fx-font-size: 28px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0d47a1;
-    -fx-padding: 20px 0;
+    -fx-text-fill: #2c3e50;
 }
 
-/* Libellés */
+/* Labels */
 .label {
     -fx-font-size: 14px;
-    -fx-text-fill: #1e3a5f;
-    -fx-font-weight: 600;
-    -fx-min-width: 100px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+    -fx-min-width: 120px;
 }
 
-/* Champs de texte et combobox */
+/* Champs de saisie */
 .input-field {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #90caf9;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 8px;
-    -fx-font-size: 13px;
-    -fx-text-fill: #0d47a1;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1);
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px;
 }
 
-/* Champ image désactivé */
-.input-field:disabled {
-    -fx-opacity: 0.85;
+/* Bouton carte */
+.map-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 4px;
+}
+
+.map-button:hover {
+    -fx-background-color: #2980b9;
 }
 
 /* Bouton parcourir */
 .browse-button {
-    -fx-background-color: #42a5f5;
+    -fx-background-color: #95a5a6;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-background-radius: 18px;
-    -fx-padding: 6px 14px;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+    -fx-padding: 5px 10px;
 }
 
 .browse-button:hover {
-    -fx-background-color: #64b5f6;
+    -fx-background-color: #7f8c8d;
+}
+
+/* Bouton soumettre */
+.submit-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 4px;
+}
+
+.submit-button:hover {
+    -fx-background-color: #27ae60;
 }
 
 /* Aperçu image */
 .image-preview {
-    -fx-border-color: #cfd8dc;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 4px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 3, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
 }
-
-/* Bouton Ajouter */
-.submit-button {
-    -fx-background-color: linear-gradient(to right, #26c6da, #00acc1);
+.ai-generate-button {
+    -fx-background-color: #4A90E2;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-background-radius: 25px;
-    -fx-padding: 10px 28px;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 8;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 1);
+    -fx-transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-    -fx-background-color: linear-gradient(to right, #4dd0e1, #26c6da);
+.ai-generate-button:hover {
+    -fx-background-color: #3A78C2;
 }

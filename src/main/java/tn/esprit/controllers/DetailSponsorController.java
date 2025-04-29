@@ -13,12 +13,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import tn.esprit.models.sponsor;
 import tn.esprit.services.ServiceSponsor;
+import tn.esprit.utils.QRCodeGenerator;
 
 import java.io.IOException;
 
 public class DetailSponsorController {
     @FXML
     private Button btnAfficher;
+    @FXML
+    private ImageView qrCodeImageView;
     @FXML
     private Label nomLabel;
     @FXML
@@ -46,6 +49,23 @@ public class DetailSponsorController {
         descriptionLabel.setText(sponsor.getDescription());
         typeLabel.setText(sponsor.getType());
         prixLabel.setText("Prix: " + sponsor.getPrix());
+
+        // Générer et afficher le QR code pour le sponsor
+        try {
+            String sponsorInfo = "Nom: " + sponsor.getName() + "\n" +
+                    "Type: " + sponsor.getType() + "\n" +
+                    "Prix: " + sponsor.getPrix();
+            Image qrCodeImage = QRCodeGenerator.generateQRCodeImage(sponsorInfo, 150, 150);
+            qrCodeImageView.setImage(qrCodeImage); // Afficher l'image du QR code dans l'ImageView
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Si erreur, afficher un message d'erreur
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Erreur de génération du QR code");
+            errorAlert.setHeaderText("Erreur lors de la création du QR code");
+            errorAlert.setContentText("Impossible de générer le QR code du sponsor.");
+            errorAlert.showAndWait();
+        }
     }
 
 

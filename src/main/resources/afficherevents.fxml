@@ -4,6 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.BarChart?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="tn.esprit.controllers.affichereventscontroller"
@@ -36,6 +39,7 @@
       </HBox>
    </top>
 
+
    <!-- 🧾 Zone centrale dynamique -->
    <center>
       <AnchorPane fx:id="contentPane">
@@ -64,6 +68,7 @@
             </padding>
          </HBox>
 
+
          <!-- 🔘 Boutons Ajouter / Rafraîchir -->
          <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-background-color: #f9f9f9;">
             <padding>
@@ -71,6 +76,7 @@
             </padding>
             <Button text="➕ Ajouter un événement" fx:id="addButton" onAction="#ajouterEvent" styleClass="add-btn"/>
             <Button text="🔄 Rafraîchir" fx:id="refreshButton" onAction="#refreshEvents" styleClass="refresh-btn"/>
+            <Button text="Voir Statistiques" onAction="#showStats"  styleClass="statique-btn" />
          </HBox>
 
       </VBox>

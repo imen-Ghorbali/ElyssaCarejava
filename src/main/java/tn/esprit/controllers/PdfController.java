@@ -52,7 +52,10 @@ public class PdfController {
                             "Date : " + selectedEvent.getDate() + "\n" +
                             "Description : " + selectedEvent.getDescription();
 
-                    pdfService.genererPdf(nomFichier, contenu);
+                    // Récupération du chemin de l'image de l'événement (ajuster selon votre structure)
+                    String eventImagePath = selectedEvent.getImage(); // Assurez-vous que cette méthode existe dans la classe `events`
+
+                    pdfService.genererPdf(nomFichier, contenu, eventImagePath);
                 });
             }
 

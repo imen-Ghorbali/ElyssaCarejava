@@ -30,6 +30,9 @@
         <Label fx:id="sponsorLabel" styleClass="event-label" text="Sponsor de l'événement"/>
     </VBox>
 
+    <!-- Image pour afficher le QR Code de l'événement -->
+    <ImageView fx:id="qrCodeImageView" fitWidth="150" fitHeight="150" preserveRatio="true" styleClass="qr-code-image"/>
+
     <!-- Bouton pour retourner à la liste -->
     <Button fx:id="btnRetourListe" text="Retour à la liste" onAction="#handleRetourListe" styleClass="button"/>
 </VBox>

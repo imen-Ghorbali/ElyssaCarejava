@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,12 +25,11 @@ import tn.esprit.services.ServiceSponsor;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class affichereventscontroller implements Initializable {
-
+    @FXML
+    private BarChart<String, Number> sponsorChart;
     @FXML
     private FlowPane eventCardsContainer;
     @FXML
@@ -154,13 +155,22 @@ public class affichereventscontroller implements Initializable {
 
     private void generatePdf(events e) {
         PdfService pdfService = new PdfService();
+
+        // Contenu du PDF
         String contenuPdf = "Titre : " + e.getTitle() + "\n" +
                 "Lieu : " + e.getLieu() + "\n" +
                 "Date : " + e.getDate() + "\n" +
                 "Description : " + e.getDescription() + "\n" +
                 "Sponsor : " + (e.getSponsor() != null ? e.getSponsor().getName() : "Aucun");
+
+        // Nom du fichier PDF
         String nomFichierPdf = e.getTitle().replaceAll("\\s+", "_") + "_details.pdf";
-        pdfService.genererPdf(nomFichierPdf, contenuPdf);
+
+        // Récupérer le chemin de l'image de l'événement
+        String eventImagePath = e.getImage(); // Assurez-vous que cette méthode existe dans la classe `events`
+
+        // Appeler la méthode de génération de PDF avec les 3 arguments
+        pdfService.genererPdf(nomFichierPdf, contenuPdf, eventImagePath);
     }
 
     private void openSponsorDetails(int sponsorId) {
@@ -264,6 +274,8 @@ public class affichereventscontroller implements Initializable {
         }
     }
 
+
+
     @FXML
     private void ajouterEvent() {
         try {
@@ -283,6 +295,16 @@ public class affichereventscontroller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendar.fxml"));
             AnchorPane calendarView = loader.load();
             contentPane.getChildren().setAll(calendarView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void showStats() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statistiques.fxml"));
+            AnchorPane statsView = loader.load();
+            contentPane.getChildren().setAll(statsView);
         } catch (IOException e) {
             e.printStackTrace();
         }

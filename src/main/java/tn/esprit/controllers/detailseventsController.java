@@ -12,12 +12,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
 import tn.esprit.services.ServiceEvent;
+import tn.esprit.utils.QRCodeGenerator; // Importer la classe QRCodeGenerator
+import com.google.zxing.WriterException; // Importer WriterException
 
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class detailseventsController {
+
     @FXML
     private Button btnRetourListe;
     @FXML
@@ -31,7 +34,9 @@ public class detailseventsController {
     @FXML
     private Label dateLabel;
     @FXML
-    private ImageView imageView; // Utilisation de javafx.scene.image.ImageView
+    private ImageView imageView; // Image pour l'événement
+    @FXML
+    private ImageView qrCodeImageView; // Nouveau ImageView pour afficher le QR code
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
     private int eventId;
@@ -41,11 +46,12 @@ public class detailseventsController {
         this.eventId = eventId;
         loadEventDetails();
     }
+
     @FXML
     public void handleRetourListe(ActionEvent event) {
-        // Ici, tu peux charger la vue de la liste des événements
+        // Retour à la liste des événements
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/afficherevents.fxml")); // Remplace par ton fichier FXML de la liste
+            Parent root = FXMLLoader.load(getClass().getResource("/afficherevents.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) btnRetourListe.getScene().getWindow();
             stage.setScene(scene);
@@ -75,29 +81,34 @@ public class detailseventsController {
                 sponsorLabel.setText("Sponsor: Aucun");
             }
 
-            // Gestion de l'image
+            // Gestion de l'image de l'événement
             try {
                 String imagePath = event.getImage();
                 if (imagePath != null && !imagePath.isEmpty()) {
                     if (imagePath.startsWith("http")) {
-                        // Si c'est une URL
                         imageView.setImage(new Image(imagePath));
                     } else {
-                        // Si c'est un chemin de fichier local
                         File file = new File(imagePath);
                         if (file.exists()) {
                             imageView.setImage(new Image(file.toURI().toString()));
                         } else {
-                            // Si le fichier n'existe pas, essayer de le charger depuis les ressources
                             imageView.setImage(new Image(getClass().getResourceAsStream(imagePath)));
                         }
                     }
                 }
             } catch (Exception e) {
                 System.err.println("Erreur de chargement de l'image: " + e.getMessage());
-                // Option: Charger une image par défaut si erreur
-                // imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
             }
+
+            // Générer et afficher le QR Code
+            try {
+                String eventLink = "http://192.168.1.19:8000/eventes" ; // Lien vers la page de l'événement
+                Image qrImage = QRCodeGenerator.generateQRCodeImage(eventLink, 200, 200); // Générer l'image QR code
+                qrCodeImageView.setImage(qrImage); // Afficher l'image dans le ImageView pour le QR code
+            } catch (WriterException e) {
+                e.printStackTrace(); // Gérer l'erreur de génération du QR code
+            }
+
         } else {
             titleLabel.setText("Événement non trouvé");
             descriptionLabel.setText("");
@@ -105,6 +116,7 @@ public class detailseventsController {
             dateLabel.setText("");
             sponsorLabel.setText("");
             imageView.setImage(null);
+            qrCodeImageView.setImage(null); // Réinitialiser l'image du QR code
         }
     }
 }

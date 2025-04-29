@@ -1,81 +1,109 @@
 package tn.esprit.services;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.LocalDate;
 
 public class PdfService {
 
-    public void genererPdf(String nomFichier, String contenuTexte) {
-        Document document = new Document(PageSize.A4, 50, 50, 50, 50); // marges
+    private static final BaseColor PRIMARY_COLOR = new BaseColor(0, 102, 204); // Bleu professionnel
+    private static final BaseColor SECONDARY_COLOR = new BaseColor(241, 90, 34); // Orange (accent)
+    private static final BaseColor LIGHT_GRAY = new BaseColor(240, 240, 240); // Fond
+
+    public void genererPdf(String nomFichier, String contenuTexte, String eventImagePath) {
+        Document document = new Document(PageSize.A4, 40, 40, 60, 40);
         try {
             PdfWriter.getInstance(document, new FileOutputStream(nomFichier));
             document.open();
 
-            // 📅 Date du jour
-            Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.GRAY);
-            Paragraph date = new Paragraph("Date : " + LocalDate.now(), dateFont);
-            date.setAlignment(Element.ALIGN_RIGHT);
-            document.add(date);
+            // ========== EN-TÊTE AVEC LOGO ==========
 
-            // 🎫 Titre principal
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24, BaseColor.DARK_GRAY);
-            Paragraph title = new Paragraph("🎫 Fiche Détail Événement", titleFont);
+            // 1. Logo (réduit)
+            Image logo = Image.getInstance(getClass().getResource("/images/logo.png"));
+            logo.scaleToFit(60, 60);  // Logo plus petit
+            logo.setAlignment(Image.ALIGN_LEFT);
+
+            // 2. Titre avec style
+            Paragraph title = new Paragraph("Fiche Événement\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, PRIMARY_COLOR));
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingAfter(20f);
-            document.add(title);
 
-            // 🔹 Ligne de séparation
-            LineSeparator separator = new LineSeparator();
-            separator.setLineColor(BaseColor.LIGHT_GRAY);
-            document.add(separator);
+            // 3. Date
+            Paragraph date = new Paragraph("Généré le : " + java.time.LocalDate.now(),
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.GRAY));
+            date.setAlignment(Element.ALIGN_RIGHT);
 
-            // ✍️ Bloc de contenu
-            Font labelFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, BaseColor.BLACK);
-            Font valueFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
+            // Assemblage de l'en-tête
+            PdfPTable headerTable = new PdfPTable(2);
+            headerTable.setWidthPercentage(100);
+            headerTable.addCell(createImageCell(logo));
+            headerTable.addCell(createTextCell(title, date));
+            document.add(headerTable);
 
-            String[] lignes = contenuTexte.split("\n");
-            for (String ligne : lignes) {
-                if (ligne.contains("▶")) {
-                    String[] parts = ligne.split("▶");
-                    if (parts.length > 1) {
-                        String[] data = parts[1].split(":", 2);
-                        if (data.length == 2) {
-                            Chunk label = new Chunk(data[0].trim() + " : ", labelFont);
-                            Chunk value = new Chunk(data[1].trim() + "\n", valueFont);
-                            Paragraph paragraph = new Paragraph();
-                            paragraph.add(label);
-                            paragraph.add(value);
-                            paragraph.setSpacingBefore(5f);
-                            document.add(paragraph);
-                        } else {
-                            document.add(new Paragraph(parts[1], valueFont));
-                        }
-                    }
+            // ========== CONTENU PRINCIPAL ==========
+
+            // Séparateur visuel
+            LineSeparator sep = new LineSeparator();
+            sep.setLineColor(SECONDARY_COLOR);
+            sep.setPercentage(80);
+            document.add(sep);
+            document.add(Chunk.NEWLINE);
+
+            // Contenu formaté
+            String[] lines = contenuTexte.split("\n");
+            for (String line : lines) {
+                if (line.startsWith("▶")) {
+                    // Style pour les titres de section
+                    Paragraph section = new Paragraph(line.substring(1).trim(),
+                            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, PRIMARY_COLOR));
+                    section.setSpacingBefore(15f);
+                    document.add(section);
+                } else if (line.contains(":")) {
+                    // Style pour les paires clé-valeur
+                    String[] parts = line.split(":", 2);
+                    Paragraph keyValue = new Paragraph();
+                    keyValue.add(new Chunk(parts[0].trim() + ": ",
+                            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11, BaseColor.DARK_GRAY)));
+                    keyValue.add(new Chunk(parts[1].trim(),
+                            FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                    keyValue.setSpacingBefore(5f);
+                    document.add(keyValue);
                 } else {
-                    document.add(new Paragraph(ligne, valueFont));
+                    // Texte normal
+                    document.add(new Paragraph(line,
+                            FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 }
             }
 
-            // 🔻 Espace final
-            document.add(new Paragraph("\n\n"));
+            // ========== IMAGE DE L'ÉVÉNEMENT ==========
 
-            // ✅ Footer
-            Font footerFont = FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, 11, BaseColor.DARK_GRAY);
-            Paragraph footer = new Paragraph("Merci pour votre confiance.\nCentre Médical Santé+ | www.santeplus.tn", footerFont);
+            if (eventImagePath != null && !eventImagePath.isEmpty()) {
+                Image eventImage = Image.getInstance(eventImagePath);
+                eventImage.scaleToFit(300, 300);  // Ajustez la taille
+                eventImage.setAlignment(Image.ALIGN_CENTER);
+                document.add(eventImage);
+                document.add(Chunk.NEWLINE);
+            }
+
+            // ========== PIED DE PAGE ==========
+
+            Paragraph footer = new Paragraph();
+            footer.add(new Chunk("© 2023 VotreApplication | ",
+                    FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, 9, BaseColor.GRAY)));
+            footer.add(new Chunk("www.votresite.com",
+                    FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, 9, SECONDARY_COLOR)));
             footer.setAlignment(Element.ALIGN_CENTER);
             footer.setSpacingBefore(20f);
             document.add(footer);
 
             document.close();
-            System.out.println("PDF généré avec succès : " + nomFichier);
 
+            // Ouvrir le PDF automatiquement
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(new File(nomFichier));
             }
@@ -84,4 +112,24 @@ public class PdfService {
             e.printStackTrace();
         }
     }
+
+    private PdfPCell createImageCell(Image img) throws DocumentException {
+        PdfPCell cell = new PdfPCell(img, true);
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cell.setPaddingLeft(10);
+        return cell;
+    }
+
+    private PdfPCell createTextCell(Paragraph title, Paragraph date) throws DocumentException {
+        PdfPCell cell = new PdfPCell();
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        cell.setPaddingRight(10);
+        cell.setPaddingTop(20);
+        cell.addElement(title);
+        cell.addElement(date);
+        return cell;
+    }
 }
+

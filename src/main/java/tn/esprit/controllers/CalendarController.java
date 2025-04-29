@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.models.events;
-import tn.esprit.services.ServiceEvent; // Assurez-vous d'avoir un service pour récupérer les événements
+import tn.esprit.services.ServiceEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,49 +31,38 @@ public class CalendarController implements Initializable {
     @FXML
     private GridPane calendarGrid;
 
-    private ServiceEvent eventService;  // Service pour récupérer les événements
+    private ServiceEvent eventService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialiser le mois courant
         currentYearMonth = YearMonth.now();
-
-        // Initialiser le service pour récupérer les événements
-        eventService = new ServiceEvent(); // Vous devrez l'adapter selon votre code
-
-        // Afficher le calendrier
+        eventService = new ServiceEvent();
         updateCalendar();
     }
 
     private void updateCalendar() {
-        // Mettre à jour l'affichage du calendrier
         generateCalendar(currentYearMonth.atDay(1));
         monthLabel.setText(currentYearMonth.getMonth().toString() + " " + currentYearMonth.getYear());
     }
 
     private void generateCalendar(LocalDate date) {
-        // Vider le calendrier existant
         calendarGrid.getChildren().clear();
 
-        // Obtenir le premier jour du mois et la longueur du mois
         YearMonth yearMonth = YearMonth.from(date);
         LocalDate firstDay = yearMonth.atDay(1);
         int lengthOfMonth = yearMonth.lengthOfMonth();
 
-        // Calculer quel jour de la semaine commence le mois (1 = Lundi, 7 = Dimanche)
         int firstDayOfWeek = firstDay.getDayOfWeek().getValue(); // 1 = Lundi, 7 = Dimanche
 
         int row = 0;
         int col = firstDayOfWeek - 1;
 
-        // Récupérer les événements du mois courant depuis le service
         List<events> eventList = eventService.getEventsForMonth(currentYearMonth);
+        LocalDate today = LocalDate.now();
 
-        // Parcourir chaque jour du mois
         for (int day = 1; day <= lengthOfMonth; day++) {
             LocalDate currentDate = yearMonth.atDay(day);
 
-            // Créer une cellule pour chaque jour
             VBox dayCell = new VBox();
             dayCell.setPrefSize(100, 80);
             dayCell.setStyle("-fx-border-color: lightgray; -fx-padding: 5;");
@@ -82,7 +71,6 @@ public class CalendarController implements Initializable {
             dayLabel.setStyle("-fx-font-weight: bold;");
             dayCell.getChildren().add(dayLabel);
 
-            // Ajouter les événements du jour
             boolean hasEvent = false;
             for (events e : eventList) {
                 if (e.getDate().toLocalDate().equals(currentDate)) {
@@ -93,24 +81,19 @@ public class CalendarController implements Initializable {
                 }
             }
 
-            // Mettre en surbrillance les jours avec événements
             if (hasEvent) {
                 dayCell.setStyle(dayCell.getStyle() + "-fx-background-color: #e0f7fa;");
             }
 
-            // Ajouter un événement au clic sur un jour
-            dayCell.setOnMouseClicked(event -> {
-                System.out.println("Événements pour le " + currentDate + " :");
-                for (events e : eventList) {
-                    if (e.getDate().toLocalDate().equals(currentDate)) {
-                        System.out.println("• " + e.getTitle());
-                    }
-                }
-            });
+            // 💡 Bloquer les dates passées
+            if (!currentDate.isBefore(today)) {
+                dayCell.setOnMouseClicked(event -> openAddEventForm(currentDate));
+            } else {
+                // Désactiver visuellement les dates passées
+                dayCell.setStyle(dayCell.getStyle() + "-fx-opacity: 0.4;");
+            }
 
-            // Ajouter la cellule du jour à la grille
             calendarGrid.add(dayCell, col, row);
-
             col++;
             if (col == 7) {
                 col = 0;
@@ -119,7 +102,23 @@ public class CalendarController implements Initializable {
         }
     }
 
-    // Méthodes pour gérer les boutons "précédent" et "suivant"
+    private void openAddEventForm(LocalDate selectedDate) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterevents.fxml"));
+            Parent root = loader.load();
+
+            AjouterEventsController controller = loader.getController();
+            controller.setSelectedDate(selectedDate);
+
+            Stage stage = (Stage) calendarGrid.getScene().getWindow();
+            stage.setTitle("Ajouter un Événement");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void handlePreviousMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
@@ -131,6 +130,7 @@ public class CalendarController implements Initializable {
         currentYearMonth = currentYearMonth.plusMonths(1);
         updateCalendar();
     }
+
     @FXML
     private void goToAfficherEvents(ActionEvent event) {
         try {

@@ -8,7 +8,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.controllers.AjouterEventsController"
-            prefWidth="750.0" prefHeight="620.0"
+            prefWidth="750.0" prefHeight="820.0"
             stylesheets="@css/styleajout.css">
 
    <children>
@@ -21,8 +21,6 @@
       <VBox alignment="TOP_CENTER" spacing="18"
             layoutX="50" layoutY="70"
             prefWidth="650">
-
-         <!-- Ajout du padding correct -->
          <padding>
             <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
          </padding>
@@ -32,17 +30,21 @@
             <Label text="Titre" styleClass="label"/>
             <TextField fx:id="titleField" prefWidth="400" styleClass="input-field"/>
          </HBox>
-
+         <!--descr ia -->
+         <Button text="Générer une description avec l'IA"
+                 onAction="#handleGenerateDescription"
+                 styleClass="ai-generate-button"/>
          <!-- Description -->
          <HBox alignment="CENTER_LEFT" spacing="15">
             <Label text="Description" styleClass="label"/>
             <TextField fx:id="description" prefWidth="400" styleClass="input-field"/>
          </HBox>
 
-         <!-- Lieu -->
+         <!-- Lieu avec bouton carte -->
          <HBox alignment="CENTER_LEFT" spacing="15">
             <Label text="Lieu" styleClass="label"/>
-            <TextField fx:id="lieu" prefWidth="400" styleClass="input-field"/>
+            <TextField fx:id="lieu" prefWidth="300" styleClass="input-field" editable="false"/>
+            <Button fx:id="mapButton" text="Carte" onAction="#openMapp" styleClass="map-button"/>
          </HBox>
 
          <!-- Date -->
@@ -58,7 +60,6 @@
             <Button text="Parcourir..." onAction="#handleImageBrowse" styleClass="browse-button"/>
          </HBox>
 
-         <!-- Aperçu de l'image -->
          <ImageView fx:id="previewImage" fitWidth="240" fitHeight="160" styleClass="image-preview"/>
 
          <!-- Sponsor -->
@@ -69,6 +70,7 @@
 
          <!-- Bouton Ajouter -->
          <Button fx:id="ajouter" text="Ajouter l'événement" onAction="#handleSubmit" styleClass="submit-button"/>
+         <Button text="Retour" onAction="#goToList" styleClass="submit-button" />
       </VBox>
    </children>
 </AnchorPane>

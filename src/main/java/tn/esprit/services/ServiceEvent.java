@@ -12,6 +12,50 @@ import java.util.List;
 
 public class ServiceEvent {
     Connection cnx = DataBase.getInstance().getCnx();
+    public void addEventWithCoordinates(events event, Double latitude, Double longitude) {
+        // Vérification des champs obligatoires
+        if (event.getTitle() == null || event.getTitle().isEmpty() ||
+                event.getDescription() == null || event.getDescription().isEmpty() ||
+                event.getLieu() == null || event.getLieu().isEmpty() ||
+                event.getDate() == null || event.getImage() == null || event.getImage().isEmpty()) {
+            System.out.println("Erreur : Tous les champs obligatoires doivent être remplis.");
+            return;
+        }
+
+        // La requête SQL pour insérer un événement avec les coordonnées
+        String sql = "INSERT INTO events (title, description, lieu, date, image, id_sponsor, latitude, longitude) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
+            // Paramètres de la requête
+            pstmt.setString(1, event.getTitle());
+            pstmt.setString(2, event.getDescription());
+            pstmt.setString(3, event.getLieu());
+            pstmt.setTimestamp(4, Timestamp.valueOf(event.getDate())); // conversion de LocalDateTime en Timestamp
+            pstmt.setString(5, event.getImage());
+
+            // Vérification du sponsor et ajout de son ID si existant
+            if (event.getSponsor() != null) {
+                pstmt.setInt(6, event.getSponsor().getId());  // Ajouter l'ID du sponsor
+            } else {
+                pstmt.setNull(6, Types.INTEGER);  // Si aucun sponsor, on met la valeur à NULL
+            }
+
+            // Ajout des coordonnées
+            pstmt.setDouble(7, latitude);
+            pstmt.setDouble(8, longitude);
+
+            // Exécution de la requête
+            int res = pstmt.executeUpdate();
+            if (res > 0) {
+                System.out.println("Événement ajouté avec succès !");
+            } else {
+                System.out.println("Échec de l'ajout de l'événement.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // Ajouter un événement (avec contrôle de saisie)
     public void add(events e) {

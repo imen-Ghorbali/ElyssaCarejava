@@ -130,10 +130,7 @@ public class modifiereventsController {
             showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
             return;
         }
-        if (!isValidField(lieu.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le lieu doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
-            return;
-        }
+
         if (image.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "L'image est obligatoire.");
             return;

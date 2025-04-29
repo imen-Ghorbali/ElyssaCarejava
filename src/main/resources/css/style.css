@@ -63,6 +63,11 @@
     -fx-border-color: #4a8ccf;
     -fx-border-width: 2;
 }
+.statique-btn {
+    -fx-background-color: #5dade2;
+    -fx-border-color: #4a8ccf;
+    -fx-border-width: 2;
+}
 
 .modify-btn {
     -fx-background-color: #5dade2;
@@ -71,14 +76,14 @@
 }
 
 .delete-btn {
-    -fx-background-color: #e74c3c;
-    -fx-border-color: #c0392b;
+    -fx-background-color: #5dade2;
+    -fx-border-color: #4a8ccf;
     -fx-border-width: 2;
 }
 
 .details-btn {
-    -fx-background-color: #46cfa3;
-    -fx-border-color: #34b79e;
+    -fx-background-color: #5dade2;
+    -fx-border-color: #4a8ccf;
     -fx-border-width: 2;
 }
 
@@ -176,7 +181,7 @@
 
 /* Page sélectionnée */
 .pagination-button.selected {
-    -fx-background-color: #2ecc71;
+    -fx-background-color: #2980b9;
     -fx-text-fill: white;
 }
 
