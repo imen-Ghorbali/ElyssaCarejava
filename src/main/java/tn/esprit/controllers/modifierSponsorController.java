@@ -29,10 +29,8 @@ public class modifierSponsorController {
 
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
 
-    // Appelé pour remplir les champs avec le sponsor à modifier
     public void setSponsor(sponsor s) {
         this.currentSponsor = s;
-
         nomField.setText(s.getName());
         descriptionField.setText(s.getDescription());
         prixField.setText(String.valueOf(s.getPrix()));
@@ -46,17 +44,16 @@ public class modifierSponsorController {
             return;
         }
 
-        // Validation des champs
         if (!isValidField(nomField.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit contenir au moins 4 caractères et ne doit pas commencer par un espace.");
             return;
         }
         if (!isValidField(descriptionField.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 4 caractères et ne doit pas commencer par un espace.");
             return;
         }
         if (!isValidField(typeField.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le type doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le type doit contenir au moins 4 caractères et ne doit pas commencer par un espace.");
             return;
         }
         if (prixField.getText().isEmpty()) {
@@ -66,11 +63,15 @@ public class modifierSponsorController {
 
         try {
             int prix = Integer.parseInt(prixField.getText());
+            if (prix <= 0) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le prix doit être un entier strictement positif.");
+                return;
+            }
 
-            currentSponsor.setName(nomField.getText());
-            currentSponsor.setDescription(descriptionField.getText());
+            currentSponsor.setName(nomField.getText().trim());
+            currentSponsor.setDescription(descriptionField.getText().trim());
             currentSponsor.setPrix(prix);
-            currentSponsor.setType(typeField.getText());
+            currentSponsor.setType(typeField.getText().trim());
 
             serviceSponsor.edit(currentSponsor);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Sponsor modifié avec succès !");
@@ -81,7 +82,7 @@ public class modifierSponsorController {
     }
 
     private boolean isValidField(String value) {
-        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
+        return value != null && value.trim().length() >= 4 && !value.startsWith(" ");
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -94,21 +95,10 @@ public class modifierSponsorController {
 
     private void navigateTosponsorList() {
         try {
-            // Charger la vue de la liste des sponsors
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichersponsor.fxml"));
             Parent root = loader.load();
-
-            // Obtenir la scène actuelle
             Stage stage = (Stage) nomField.getScene().getWindow();
-
-            // Remplacer la scène actuelle par la nouvelle scène
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-            // Rafraîchir la liste des sponsors dans le contrôleur de la liste
-            affichersponsorController affichersponsorController = loader.getController();
-            // Appel de la méthode pour rafraîchir la liste
-
+            stage.setScene(new Scene(root));
         } catch (IOException ex) {
             ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des sponsors.");

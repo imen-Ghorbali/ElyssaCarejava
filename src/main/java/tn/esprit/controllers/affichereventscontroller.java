@@ -136,10 +136,10 @@ public class affichereventscontroller implements Initializable {
         Button btnDetails = new Button("Détails");
         Button btnPdf = new Button("Générer PDF");
 
-        btnModifier.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+        btnModifier.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;");
         btnSupprimer.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white;");
-        btnDetails.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white;");
-        btnPdf.setStyle("-fx-background-color: #8e44ad; -fx-text-fill: white;");
+        btnDetails.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;");
+        btnPdf.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white;");
 
         btnModifier.setOnAction(ev -> openModifierForm(e));
         btnSupprimer.setOnAction(ev -> deleteEvent(e));

@@ -21,7 +21,7 @@ module projetWeb {
     exports tn.esprit.controllers;
     requires okhttp3;
     requires java.net.http;
-
+    requires jakarta.mail;
 
     // Ouvertures pour les packages
     opens tn.esprit to javafx.graphics;

@@ -48,7 +48,7 @@ public class modifiereventsController {
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
 
     public void setEvent(events e) {
-        this.currentEvent = e; // Variable d'instance permettant de stocker l'événement à modifier
+        this.currentEvent = e;
 
         titleField.setText(e.getTitle());
         description.setText(e.getDescription());
@@ -63,20 +63,14 @@ public class modifiereventsController {
             System.out.println("Erreur chargement image : " + ex.getMessage());
         }
 
-        // Remplir le ComboBox avec tous les sponsors
         List<sponsor> sponsors = serviceSponsor.getAll();
         comboBoxSponsor.setItems(FXCollections.observableArrayList(sponsors));
 
-        // Personnaliser l'affichage dans le ComboBox
         comboBoxSponsor.setCellFactory(cell -> new ListCell<sponsor>() {
             @Override
             protected void updateItem(sponsor item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item != null && !empty) {
-                    setText(item.getName());
-                } else {
-                    setText(null);
-                }
+                setText((item != null && !empty) ? item.getName() : null);
             }
         });
 
@@ -84,15 +78,10 @@ public class modifiereventsController {
             @Override
             protected void updateItem(sponsor item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item != null && !empty) {
-                    setText(item.getName());
-                } else {
-                    setText(null);
-                }
+                setText((item != null && !empty) ? item.getName() : null);
             }
         });
 
-        // Pré-sélectionner le sponsor de l’événement s’il existe
         if (e.getSponsor() != null) {
             for (sponsor s : sponsors) {
                 if (s.getId() == e.getSponsor().getId()) {
@@ -121,13 +110,18 @@ public class modifiereventsController {
             return;
         }
 
-        // Validation des champs
         if (!isValidField(titleField.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le titre doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le titre est obligatoire, doit contenir au moins 4 caractères, et ne doit pas commencer par un espace.");
             return;
         }
+
         if (!isValidField(description.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir au moins 8 caractères et ne doit pas contenir d'espaces.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "La description est obligatoire, doit contenir au moins 4 caractères, et ne doit pas commencer par un espace.");
+            return;
+        }
+
+        if (!isValidField(lieu.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le lieu est obligatoire, doit contenir au moins 4 caractères, et ne doit pas commencer par un espace.");
             return;
         }
 
@@ -136,12 +130,11 @@ public class modifiereventsController {
             return;
         }
 
-        // Mise à jour de l'événement
-        currentEvent.setTitle(titleField.getText());
-        currentEvent.setDescription(description.getText());
-        currentEvent.setLieu(lieu.getText());
+        currentEvent.setTitle(titleField.getText().trim());
+        currentEvent.setDescription(description.getText().trim());
+        currentEvent.setLieu(lieu.getText().trim());
         currentEvent.setDate(date.getValue().atStartOfDay());
-        currentEvent.setImage(image.getText());
+        currentEvent.setImage(image.getText().trim());
 
         sponsor selectedSponsor = comboBoxSponsor.getValue();
         if (selectedSponsor != null) {
@@ -151,18 +144,13 @@ public class modifiereventsController {
             System.out.println("Aucun sponsor sélectionné.");
         }
 
-        // Modifier l'événement dans la base de données
         serviceEvent.edit(currentEvent);
-
-        // Afficher une alerte de succès
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Événement modifié avec succès !");
-
-        // Naviguer vers la liste des événements
         navigateToEventList();
     }
 
     private boolean isValidField(String value) {
-        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
+        return value != null && value.trim().length() >= 4 && !value.startsWith(" ");
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -175,21 +163,10 @@ public class modifiereventsController {
 
     private void navigateToEventList() {
         try {
-            // Charger la vue de la liste des événements
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevents.fxml"));
             Parent root = loader.load();
-
-            // Obtenir la scène actuelle
             Stage stage = (Stage) titleField.getScene().getWindow();
-
-            // Remplacer la scène actuelle par la nouvelle scène
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-            // Rafraîchir la liste des événements dans le contrôleur de la liste
-            affichereventscontroller eventListController = loader.getController();
-            // Appel de la méthode pour rafraîchir la liste
-
+            stage.setScene(new Scene(root));
         } catch (IOException ex) {
             ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de naviguer vers la liste des événements.");

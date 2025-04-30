@@ -102,7 +102,7 @@ public class detailseventsController {
 
             // Générer et afficher le QR Code
             try {
-                String eventLink = "http://192.168.1.19:8000/eventes" ; // Lien vers la page de l'événement
+                String eventLink = "http://192.168.1.23:8000/eventes\n" ; // Lien vers la page de l'événement
                 Image qrImage = QRCodeGenerator.generateQRCodeImage(eventLink, 200, 200); // Générer l'image QR code
                 qrCodeImageView.setImage(qrImage); // Afficher l'image dans le ImageView pour le QR code
             } catch (WriterException e) {

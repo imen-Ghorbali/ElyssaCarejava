@@ -134,4 +134,9 @@ public class ServiceSponsor {
         }
         return null;
     }
+    public String getSponsorEmail(int sponsorId) {
+        // Ici, tu pourrais interroger ta base de données ou ton API pour récupérer l'email
+        // Cette méthode est une alternative si tu ne veux pas ajouter un attribut email dans la classe sponsor
+        return "hamed.nisrine@esprit.tn";  // Exemple d'email retourné
+    }
 }

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class OpenAIService {
 
-    private static final String API_KEY = "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" ;// remplace par ta clé OpenRouter
+    private static final String API_KEY = "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" ;// remplace par ta clé OpenRouter
     private static final String ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
     private final OkHttpClient client;
 

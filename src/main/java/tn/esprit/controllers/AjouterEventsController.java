@@ -22,7 +22,9 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import tn.esprit.models.events;
 import tn.esprit.models.sponsor;
+import tn.esprit.services.MailService;
 import tn.esprit.services.OpenAIService;
+
 import tn.esprit.services.ServiceEvent;
 import tn.esprit.services.ServiceSponsor;
 import javafx.geometry.Pos;   // For positioning inside StackPane
@@ -32,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+
 
 public class AjouterEventsController {
 
@@ -224,7 +227,19 @@ public class AjouterEventsController {
             newEvent.setSponsor(comboBoxSponsor.getValue());
 
             serviceEvent.addEventWithCoordinates(newEvent, latitude, longitude);
+            sponsor selectedSponsor = comboBoxSponsor.getValue();
+            if (selectedSponsor != null) {
+                int sponsorId = selectedSponsor.getId(); // Obtient l'ID du sponsor
+                String sponsorEmail = serviceSponsor.getSponsorEmail(sponsorId); // Utilise le service pour récupérer l'email
+                String sponsorName = selectedSponsor.getName();
+                String eventTitle = newEvent.getTitle();
+                String eventDate = newEvent.getDate().toLocalDate().toString();
+                String eventLocation = newEvent.getLieu();
+                MailService mailService = new MailService();
 
+                // Envoie l'email au sponsor
+                mailService.sendSponsorNotification(sponsorEmail, sponsorName, eventTitle, eventDate, eventLocation);
+            }
             showAlert("Succès", "Événement ajouté avec succès", Alert.AlertType.INFORMATION);
             redirectToEventsView();
         } catch (Exception e) {

@@ -31,22 +31,21 @@ public class AjouterSponsorController {
 
     @FXML
     void handleSubmit(ActionEvent event) {
-        String name = nameField.getText().trim();
-        String description = descriptionField.getText().trim();
-        String type = typeField.getText().trim();
-        String prixText = prixField.getText().trim();
+        String name = nameField.getText();
+        String description = descriptionField.getText();
+        String type = typeField.getText();
+        String prixText = prixField.getText();
 
-        // Validation : Les champs ne doivent pas être vides, doivent contenir au moins 8 caractères, et ne doivent pas contenir d'espaces
         if (!isValidField(name)) {
-            showErrorAlert("Erreur", "Le nom du sponsor est obligatoire (au moins 8 caractères et sans espaces)");
+            showErrorAlert("Erreur", "Le nom est obligatoire (au moins 4 caractères, sans espace au début)");
             return;
         }
         if (!isValidField(description)) {
-            showErrorAlert("Erreur", "La description est obligatoire (au moins 8 caractères et sans espaces)");
+            showErrorAlert("Erreur", "La description est obligatoire (au moins 4 caractères, sans espace au début)");
             return;
         }
         if (!isValidField(type)) {
-            showErrorAlert("Erreur", "Le type est obligatoire (au moins 8 caractères et sans espaces)");
+            showErrorAlert("Erreur", "Le type est obligatoire (au moins 4 caractères, sans espace au début)");
             return;
         }
         if (prixText.isEmpty()) {
@@ -56,11 +55,15 @@ public class AjouterSponsorController {
 
         try {
             int prix = Integer.parseInt(prixText);
+            if (prix <= 0) {
+                showErrorAlert("Erreur", "Le prix doit être strictement positif");
+                return;
+            }
 
             sponsor newSponsor = new sponsor();
-            newSponsor.setName(name);
-            newSponsor.setDescription(description);
-            newSponsor.setType(type);
+            newSponsor.setName(name.trim());
+            newSponsor.setDescription(description.trim());
+            newSponsor.setType(type.trim());
             newSponsor.setPrix(prix);
 
             serviceSponsor.add(newSponsor);
@@ -77,13 +80,13 @@ public class AjouterSponsorController {
     }
 
     private boolean isValidField(String value) {
-        return value != null && !value.isEmpty() && value.length() >= 8 && !value.contains(" ");
+        return value != null && value.trim().length() >= 4 && !value.startsWith(" ");
     }
 
     private void navigateToAfficherSponsors() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichersponsor.fxml"));
-            BorderPane root = loader.load(); // Utilisez Parent au lieu d'AnchorPane
+            BorderPane root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) nameField.getScene().getWindow();
             stage.setScene(scene);
