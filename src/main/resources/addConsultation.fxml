@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f9ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.addConsultation">
+   <children>
+
+      <!-- Contenu principal -->
+      <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: transparent;">
+         <children>
+            <!-- Titre avec style cohérent -->
+            <Text layoutX="256.0" layoutY="63.0" style="-fx-fill: #3a4a6a;" text="Add An Appointment">
+               <font>
+                  <Font name="Bell MT Italic" size="30.0" />
+               </font>
+            </Text>
+      
+            <!-- Formulaire avec fond arrondi -->
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="358.0" layoutX="86.0" layoutY="100.0" stroke="TRANSPARENT" strokeType="INSIDE" width="566.0">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.1)" radius="10" spread="0.1" />
+               </effect>
+            </Rectangle>
+
+            <!-- Champs du formulaire avec style unifié -->
+            <Text layoutX="150.0" layoutY="160.0" style="-fx-fill: #5a6a8a;" text="Time:">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="18.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="tf_time" layoutX="320.0" layoutY="140.0" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #f0f4ff; -fx-border-color: #d0d8e8; -fx-border-radius: 5; -fx-font-size: 14;" />
+
+            <Text layoutX="150.0" layoutY="230.0" style="-fx-fill: #5a6a8a;" text="Speciality:">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="18.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="tf_specialite" layoutX="320.0" layoutY="210.0" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #f0f4ff; -fx-border-color: #d0d8e8; -fx-border-radius: 5; -fx-font-size: 14;" />
+
+            <Text layoutX="150.0" layoutY="300.0" style="-fx-fill: #5a6a8a;" text="Doctors:">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="18.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="tf_doctor" layoutX="320.0" layoutY="280.0" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #f0f4ff; -fx-border-color: #d0d8e8; -fx-border-radius: 5; -fx-font-size: 14;" />
+
+            <Text layoutX="150.0" layoutY="370.0" style="-fx-fill: #5a6a8a;" text="Status:">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="tf_status" layoutX="320.0" layoutY="350.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #f0f4ff; -fx-border-color: #d0d8e8; -fx-border-radius: 5; -fx-font-size: 14; -fx-padding: 5;" wrapText="true" />
+
+            <!-- Boutons avec style cohérent -->
+            <Button fx:id="back" layoutX="143.0" layoutY="472.0" onAction="#handleBack" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #bfbfbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Back" />
+
+            <Button fx:id="btn_add" layoutX="471.0" layoutY="472.0" onAction="#addConsultation" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Add" />
+
+            <!-- Décoration supplémentaire -->
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="663.0" layoutY="15.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Downloads/Design_sans_titre__3_-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

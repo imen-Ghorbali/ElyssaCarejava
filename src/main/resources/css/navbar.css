@@ -1,0 +1,11 @@
+.nav-button {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.nav-button:hover {
+    -fx-background-color: #2C3E50;
+    -fx-cursor: hand;
+}

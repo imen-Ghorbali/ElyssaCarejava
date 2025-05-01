@@ -1,0 +1,150 @@
+/* 🌿 Fond général doux */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #f4f9fd, #ffffff);
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+/* 🩺 Titre principal */
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+/* 🔷 Cartes */
+.flow-pane > VBox {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #d6eaf8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0.1, 0, 4);
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-pref-width: 250;
+    -fx-transition: all 0.3s ease;
+}
+
+/* 🧾 Textes dans les cartes */
+.flow-pane Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-text-alignment: left;
+}
+
+/* 🔘 Boutons */
+.button {
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-min-width: 120;
+    -fx-transition: background-color 0.3s ease;
+}
+
+/* Hover boutons */
+.button:hover {
+    -fx-opacity: 0.85;
+    -fx-background-color: #3c8dbc;  /* Légère modification pour accentuer le survol */
+}
+
+/* Couleurs spécifiques */
+.add-btn {
+    -fx-background-color: #46cfa3;
+    -fx-border-color: #34b79e;
+    -fx-border-width: 2;
+}
+
+.refresh-btn {
+    -fx-background-color: #5dade2;
+    -fx-border-color: #4a8ccf;
+    -fx-border-width: 2;
+}
+
+.modify-btn {
+    -fx-background-color: #5dade2;
+    -fx-border-color: #4a8ccf;
+    -fx-border-width: 2;
+}
+
+.delete-btn {
+    -fx-background-color: #e74c3c;
+    -fx-border-color: #c0392b;
+    -fx-border-width: 2;
+}
+
+.details-btn {
+    -fx-background-color: #46cfa3;
+    -fx-border-color: #34b79e;
+    -fx-border-width: 2;
+}
+
+/* 📜 Scroll stylé */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b0cce9;
+    -fx-background-radius: 5;
+}
+
+/* 📦 Footer boutons */
+.hbox > .button {
+    -fx-min-width: 140;
+    -fx-max-width: 180;
+    -fx-padding: 8 16;
+}
+
+/* 🧭 ComboBox de tri */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d6eaf8;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-transition: border-color 0.3s ease;
+}
+
+.combo-box:hover {
+    -fx-border-color: #a3c9f3;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 8 10;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #5dade2;
+}
+
+/* 🔍 Champ de texte de filtrage */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8;
+    -fx-border-color: #d6eaf8;
+    -fx-padding: 6 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-transition: border-color 0.3s ease;
+}
+
+.text-field:focused {
+    -fx-border-color: #5dade2;  /* Couleur au focus pour une meilleure interaction */
+    -fx-background-color: #f1faff;  /* Légère teinte de fond au focus */
+}

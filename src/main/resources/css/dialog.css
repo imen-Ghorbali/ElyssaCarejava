@@ -1,0 +1,7 @@
+.dialog-pane {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: transparent;
+}

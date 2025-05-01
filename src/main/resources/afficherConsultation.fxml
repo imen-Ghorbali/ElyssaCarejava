@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.afficherConsultation">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: #f8f9fa;" vbarPolicy="AS_NEEDED">
+         <content>
+            <VBox prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f8f9fa;">
+               <children>
+
+                  <!-- Main Content agrandi -->
+                  <HBox alignment="CENTER" prefHeight="600.0" prefWidth="1000.0" spacing="40" style="-fx-padding: 40;">
+                     <children>
+                        <!-- Consultation History agrandi -->
+                        <VBox prefHeight="439.0" prefWidth="600.0" spacing="20" style="-fx-background-color: #f0f7fa; -fx-background-radius: 15; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 0);">
+                           <children>
+                              <Label style="-fx-text-fill: #373a40; -fx-font-weight: bold; -fx-font-size: 20;" text="Détails de la Consultation" />
+
+                              <!-- Consultation Details agrandi -->
+                              <VBox prefHeight="341.0" prefWidth="540.0" spacing="25" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                       <Label style="-fx-text-fill: #373a40; -fx-font-weight: bold; -fx-font-size: 18;" text="Date et Heure : " />
+                                       <Label fx:id="time" style="-fx-text-fill: #4a4a4a; -fx-font-size: 18;" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                       <Label style="-fx-text-fill: #373a40; -fx-font-weight: bold; -fx-font-size: 18;" text="Spécialité : " />
+                                       <Label fx:id="specialite" style="-fx-text-fill: #4a4a4a; -fx-font-size: 18;" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                       <Label style="-fx-text-fill: #373a40; -fx-font-weight: bold; -fx-font-size: 18;" text="Docteur : " />
+                                       <Label fx:id="doctor" style="-fx-text-fill: #4a4a4a; -fx-font-size: 18;" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                       <Label style="-fx-text-fill: #373a40; -fx-font-weight: bold; -fx-font-size: 18;" text="Statut : " />
+                                       <Label fx:id="status" style="-fx-text-fill: #4a4a4a; -fx-font-size: 18;" />
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="update" layoutX="173.0" layoutY="14.0" onAction="#handleUpdate" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Modifier" />
+                  
+                                    <Button fx:id="delete" layoutX="597.0" layoutY="14.0" onAction="#handleDelete" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Supprimer" />
+                  
+                                    <Button fx:id="back1" layoutX="804.0" layoutY="14.0" onAction="#handleBack" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #bfbfbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Retour" />
+                  
+                                                      <Button fx:id="back" layoutX="394.0" layoutY="14.0" onAction="#handleHistorique" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;" text="Historique" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

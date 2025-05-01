@@ -1,0 +1,84 @@
+/* Style global pour le HBox */
+.hbox {
+    -fx-background-color: #f4f4f4; /* Fond général de la page */
+}
+
+/* Partie gauche */
+.anchor-pane-left {
+    -fx-background-color: #f0f8ff; /* Fond bleu clair pour la partie gauche */
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+/* Partie droite */
+.anchor-pane-right {
+    -fx-background-color: #ffffff; /* Fond blanc pour la partie droite */
+    -fx-padding: 20px;
+}
+
+/* Titres */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c4c4c; /* Couleur sombre pour le titre */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Textes d'accueil */
+.label-welcome {
+    -fx-font-size: 18px;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #4c4c4c; /* Couleur sombre pour les textes */
+}
+
+/* Style des champs de texte */
+.text-field {
+    -fx-background-color: #e6f7ff; /* Fond bleu clair */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-border-color: #b3d9ff; /* Bordure bleue claire */
+    -fx-border-width: 2px;
+}
+
+/* Style des boutons */
+.button-create {
+    -fx-background-color: #66cc66; /* Vert pour le bouton "Create" */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px;
+}
+
+.button-create:hover {
+    -fx-background-color: #4db84d; /* Changement de couleur au survol */
+}
+
+.button-login {
+    -fx-background-color: #ffcc66; /* Orange pour le bouton "Login" */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px;
+}
+
+.button-login:hover {
+    -fx-background-color: #e6b800; /* Changement de couleur au survol */
+}
+
+/* Style des images */
+.image-view {
+    -fx-opacity: 0.8;
+}
+
+/* Style du ChoiceBox */
+.choice-box {
+    -fx-background-color: #e6f7ff; /* Fond bleu clair pour le ChoiceBox */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: #b3d9ff; /* Bordure bleue claire */
+}

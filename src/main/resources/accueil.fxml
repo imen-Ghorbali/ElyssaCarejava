@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controllers.AccueilController"
+            stylesheets="@css/accueil.css"
+            prefHeight="600" prefWidth="900">
+
+    <!-- Image de fond -->
+    <ImageView fx:id="backgroundImage" fitHeight="600" fitWidth="900" layoutX="0" layoutY="0">
+        <image>
+            <Image url="@icones/hopital.png" />
+        </image>
+    </ImageView>
+
+    <!-- Contenu de la page -->
+    <VBox alignment="CENTER" spacing="20">
+        <Label text="Bienvenue sur la page d'accueil" style="-fx-text-fill: white; -fx-font-size: 24px;" />
+        <Button text="Accéder à l'événement" style="-fx-background-color: #2C3E50; -fx-text-fill: white;" />
+    </VBox>
+
+</AnchorPane>

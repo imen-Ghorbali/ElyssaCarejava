@@ -1,0 +1,118 @@
+/* 🌿 Fond général */
+.root {
+    -fx-background-color: #f0f5f9; /* Gris clair moderne */
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+/* 🩺 Bandeau supérieur */
+.header-bar {
+    -fx-background-color: #1e88e5; /* Bleu vibrant */
+    -fx-padding: 15px;
+    -fx-border-radius: 8px;
+}
+
+/* 🩺 Titre principal */
+.header-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-text-alignment: center;
+}
+
+/* 🔷 Table stylisée */
+.styled-table {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-border-color: #bbdefb;
+    -fx-border-width: 1;
+    -fx-padding: 15;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.1, 0, 4);
+}
+
+/* 🧾 Cellules de la table */
+.table-cell {
+    -fx-padding: 10px;
+}
+
+/* 🏷️ Nom du sponsor */
+.name-column .table-cell {
+    -fx-text-fill: #0d47a1; /* Bleu foncé */
+    -fx-font-weight: bold;
+}
+
+/* 📝 Description du sponsor */
+.description-column .table-cell {
+    -fx-text-fill: #616161; /* Gris clair */
+    -fx-font-size: 12px;
+}
+
+/* 💵 Prix du sponsor */
+.price-column .table-cell {
+    -fx-text-fill: #388e3c; /* Vert */
+    -fx-font-weight: bold;
+}
+
+/* 📅 Type du sponsor */
+.type-column .table-cell {
+    -fx-text-fill: #ff9800; /* Orange */
+    -fx-font-weight: bold;
+}
+
+/* 🎯 Colonne Action (Boutons d'action) */
+.action-column .table-cell {
+    -fx-alignment: CENTER;
+}
+
+/* 🔘 Bouton Ajouter */
+.add-button {
+    -fx-background-color: #26a69a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 2, 0, 4);
+}
+
+.add-button:hover {
+    -fx-background-color: #4db6ac;
+}
+
+/* 🩺 Pied de page */
+.footer-bar {
+    -fx-background-color: #e3f2fd; /* Bleu clair */
+    -fx-padding: 15px;
+    -fx-border-radius: 10px;
+}
+
+/* 🖋️ Style des boutons de la barre d'actions */
+.hbox > .button {
+    -fx-min-width: 140;
+    -fx-max-width: 180;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+}
+
+/* 🛠️ Effet au survol sur les cellules de tableau */
+.table-row-cell:filled:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* 📜 Scroll stylé */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #90caf9;
+    -fx-background-radius: 5;
+}

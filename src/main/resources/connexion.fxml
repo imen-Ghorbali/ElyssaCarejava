@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@css/cnx.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.connexion">
+   <children>
+      <HBox layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <!-- Partie gauche avec redimensionnement dynamique -->
+            <AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: white;">
+               <children>
+                  <!-- Conteneur HBox pour image et texte côte à côte -->
+                  <HBox layoutX="40.0" layoutY="50.0" spacing="10.0" />
+
+                  <!-- Champ email -->
+                  <TextField fx:id="tf_email" layoutX="90.0" layoutY="219.0" prefHeight="40.0" prefWidth="220.0" promptText="Email" />
+
+                  <!-- Champ mot de passe -->
+                  <PasswordField fx:id="tf_password" layoutX="88.0" layoutY="288.0" prefHeight="40.0" prefWidth="220.0" promptText="Password" />
+
+                  <!-- Bouton Login -->
+                  <Button fx:id="btn_login" layoutX="7.0" layoutY="376.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="140.0" text="Login" />
+
+                  <!-- Bouton Create Account -->
+                  <Button id="create-account" layoutX="215.0" layoutY="376.0" onAction="#goToRegister" prefHeight="40.0" prefWidth="160.0" text="Create Account" />
+                  <Hyperlink fx:id="forgotPasswordLink" layoutX="30.0" layoutY="340.0" onAction="#handleForgotPassword" text="Mot de passe oublié ?" textFill="DEEPPINK">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Hyperlink>
+
+                  <!-- Texte Sign In Account -->
+                  <Text layoutX="77.0" layoutY="185.0" text="Sign In Account">
+                     <font>
+                        <Font name="Bell MT" size="32.0" />
+                     </font>
+                  </Text>
+                  <!-- Logo -->
+                  <ImageView fitHeight="142.0" fitWidth="114.0" layoutX="119.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/log.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="captchaField" layoutX="198.0" layoutY="534.0" promptText="Enter CAPTCHA" />
+                  <Button fx:id="refreshCaptchaButton" layoutX="213.0" layoutY="493.0" onAction="#refreshCaptcha" text="Refresh CAPTCHA" />
+                  <ImageView fx:id="captchaImageView" fitHeight="50" fitWidth="150" layoutX="215.0" layoutY="431.0" />
+               </children>
+            </AnchorPane>
+
+            <!-- Partie droite -->
+            <AnchorPane layoutX="400.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #87CEFA;">
+               <children>
+                  <Text layoutX="97.0" layoutY="321.0" text="Your Well-Being" wrappingWidth="250.0">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="32.0" />
+                     </font>
+                  </Text>
+
+                  <Text layoutX="28.0" layoutY="418.0" text="Starts Here">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="32.0" />
+                     </font>
+                  </Text>
+
+                  <Text layoutX="125.0" layoutY="469.0" text="Log In Now." wrappingWidth="250.0">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="28.0" />
+                     </font>
+                  </Text>
+
+                  <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="75.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,26 @@
+.header-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a6f97;
+    -fx-font-family: "Segoe UI";
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #28536b;
+    -fx-font-family: "Segoe UI";
+}
+
+.submit-button {
+    -fx-background-color: #2a9d8f;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+.button {
+    -fx-font-size: 14px;
+}

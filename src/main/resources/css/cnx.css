@@ -1,0 +1,120 @@
+/* ======================== */
+/* GLOBAL & ROOT STYLING   */
+/* ======================== */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: linear-gradient(to right, #e0f7fa, #ffffff);
+}
+
+/* ======================== */
+/* TEXTES & LABELS          */
+/* ======================== */
+.label-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-family: "Bell MT";
+    -fx-text-fill: #0D47A1;
+}
+
+.label-desc {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.label-value {
+    -fx-background-color: #87CEFA;
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-padding: 6px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #000000;
+}
+
+/* ======================== */
+/* INPUTS                   */
+/* ======================== */
+.text-field, .password-field {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: #87CEFA;
+    -fx-border-width: 1.2px;
+    -fx-background-color: #f9f9f9;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #1E90FF;
+    -fx-effect: dropshadow(three-pass-box, #87CEFA, 5, 0, 0, 1);
+}
+
+/* ======================== */
+/* CHOICEBOX                */
+/* ======================== */
+.choice-box {
+    -fx-font-size: 13px;
+    -fx-border-color: #87CEFA;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* ======================== */
+/* BUTTONS GENERIC          */
+/* ======================== */
+.button {
+    -fx-background-color: linear-gradient(to right, #87CEFA, #00BFFF);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Bodoni MT";
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #00BFFF, #1E90FF);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* ======================== */
+/* BOUTON SPÉCIAL - CREATE ACCOUNT */
+/* ======================== */
+#create-account {
+    -fx-background-color: linear-gradient(to right, #FFB6C1, #FF69B4);
+    -fx-text-fill: white;
+}
+
+#create-account:hover {
+    -fx-background-color: linear-gradient(to right, #FF69B4, #FF1493);
+}
+
+/* ======================== */
+/* PANES                    */
+/* ======================== */
+.anchor-pane-left {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    -fx-padding: 30px;
+    -fx-border-radius: 0 20 20 0;
+}
+
+.anchor-pane-right {
+    -fx-background-color: #ffffff;
+    -fx-padding: 40px;
+    -fx-border-radius: 20 0 0 20;
+}
+
+/* ======================== */
+/* INFO TEXT                */
+/* ======================== */
+.text-info {
+    -fx-text-fill: #333;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}

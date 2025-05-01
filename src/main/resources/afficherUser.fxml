@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.afficherUser" style="-fx-background-color: #f5f9ff;">
+   <children>
+      <!-- Panneau principal agrandi avec ombre et coins arrondis -->
+      <AnchorPane layoutX="50.0" layoutY="50.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+         <children>
+            <!-- Logo agrandi -->
+            <ImageView fitHeight="79.0" fitWidth="84.0" layoutX="595.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Titre agrandi et repositionné -->
+            <Text layoutX="50.0" layoutY="80.0" style="-fx-fill: #3a4a6a; -fx-font-size: 36;" text="PROFIL :">
+               <font>
+                  <Font name="Bell MT Italic" size="36.0" />
+               </font>
+            </Text>
+
+            <!-- Section d'information utilisateur -->
+            <Label layoutX="80.0" layoutY="180.0" style="-fx-text-fill: #5a6a8a; -fx-font-size: 20;" text="NAME : ">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="20.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="name" layoutX="250.0" layoutY="180.0" prefHeight="45.0" prefWidth="350.0"
+                   style="-fx-text-fill: #333333; -fx-font-size: 18; -fx-background-color: #f0f4ff; -fx-background-radius: 5; -fx-padding: 8; -fx-alignment: center-left;"
+                   text="Label" />
+
+            <Label layoutX="80.0" layoutY="260.0" style="-fx-text-fill: #5a6a8a; -fx-font-size: 20;" text="EMAIL :">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="20.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="email" layoutX="250.0" layoutY="260.0" prefHeight="45.0" prefWidth="350.0"
+                   style="-fx-text-fill: #333333; -fx-font-size: 18; -fx-background-color: #f0f4ff; -fx-background-radius: 5; -fx-padding: 8; -fx-alignment: center-left;"
+                   text="Label" />
+
+            <Label layoutX="80.0" layoutY="340.0" style="-fx-text-fill: #5a6a8a; -fx-font-size: 20;" text="ROLE : ">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="20.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="role" layoutX="250.0" layoutY="340.0" prefHeight="45.0" prefWidth="350.0"
+                   style="-fx-text-fill: #333333; -fx-font-size: 18; -fx-background-color: #f0f4ff; -fx-background-radius: 5; -fx-padding: 8; -fx-alignment: center-left;"
+                   text="Label" />
+
+            <!-- Boutons agrandis et réorganisés -->
+            <Button fx:id="update" layoutX="600.0" layoutY="180.0" onAction="#handleUpdate" prefHeight="45.0" prefWidth="150.0"
+                    style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;"
+                    text="Update" />
+
+            <Button fx:id="delete" layoutX="600.0" layoutY="260.0" onAction="#deleteUser" prefHeight="45.0" prefWidth="150.0"
+                    style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;"
+                    text="Delete" />
+
+            <Button layoutX="600.0" layoutY="340.0" onAction="#logoutAction" prefHeight="45.0" prefWidth="150.0"
+                    style="-fx-background-color: #6a8bbf; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-font-size: 16;"
+                    text="Logout" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
