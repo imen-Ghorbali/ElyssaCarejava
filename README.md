@@ -1,6 +1,6 @@
-# 🏥 MedCare – JavaFX & Symfony Application
+# 🏥 ELYSSACARE – JavaFX & Symfony Application
 
-**MedCare** est une plateforme de gestion médicale qui permet aux utilisateurs de prendre soin de leur santé via une application desktop (JavaFX) connectée à une base de données MySQL, gérée par un backend Symfony.
+**ELYSSACARE** est une plateforme de gestion médicale qui permet aux utilisateurs de prendre soin de leur santé via une application desktop (JavaFX) connectée à une base de données MySQL, gérée par un backend Symfony.
 
 ## 💻 Frontend – JavaFX Desktop App
 
